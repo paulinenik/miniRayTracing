@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/06 21:04:30 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/15 14:47:37 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int		fd;
-	char	map[10000];
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (i < n)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
 	return (0);
 }

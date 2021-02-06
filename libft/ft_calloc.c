@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/03 19:13:54 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 21:23:14 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int		fd;
-	char	map[10000];
+	void	*ptr;
+	size_t	i;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	while (i < (count * size))
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		((unsigned char *)ptr)[i] = '\0';
+		i++;
 	}
-	return (0);
+	return (ptr);
 }

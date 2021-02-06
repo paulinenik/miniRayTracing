@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/07 19:04:54 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 20:39:40 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		fd;
-	char	map[10000];
+	char	print;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n < 0)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		write(fd, "-", 1);
+		n *= -1;
 	}
-	return (0);
+	if (n > 0)
+	{
+		print = n % 10 + 48;
+		if (n / 10 != 0)
+			ft_putnbr_fd((n / 10), fd);
+		write(fd, &print, 1);
+	}
+	if (n == 0)
+		write(fd, "0", 1);
 }

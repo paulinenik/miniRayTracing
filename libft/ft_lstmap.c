@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/07 21:33:09 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 23:02:25 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int		fd;
-	char	map[10000];
+	t_list	*start;
+	t_list	*new;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	start = NULL;
+	if (lst && f)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		while (lst)
+		{
+			if (((new = ft_lstnew(f(lst->content))) == NULL) && del)
+			{
+				ft_lstclear(&start, del);
+				return (NULL);
+			}
+			ft_lstadd_back(&start, new);
+			lst = lst->next;
+		}
 	}
-	return (0);
+	return (start);
 }

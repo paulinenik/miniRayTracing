@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/07 20:05:06 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 21:42:53 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int		fd;
-	char	map[10000];
+	t_list	*last;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
+	if (*lst)
+	{
+		last = ft_lstlast(*lst);
+		last->next = new;
+	}
 	else
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		*lst = new;
 	}
-	return (0);
 }

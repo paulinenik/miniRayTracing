@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/06 20:56:59 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 21:45:42 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		fd;
-	char	map[10000];
+	size_t	i;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	if (!src || !dst)
+		return (0);
+	while (i < dstsize - 1 && src[i])
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		dst[i] = ((char *)src)[i];
+		i++;
 	}
-	return (0);
+	dst[i] = '\0';
+	return (ft_strlen(src));
 }

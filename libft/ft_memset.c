@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/06 21:06:52 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/06 21:26:00 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	int		fd;
-	char	map[10000];
+	size_t			i;
+	unsigned char	*s;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	s = (unsigned char *)b;
+	i = 0;
+	while (i < len)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		s[i] = (unsigned char)c;
+		i++;
 	}
-	return (0);
+	return (b);
 }

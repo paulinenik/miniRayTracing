@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/06 20:48:01 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 21:09:40 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		fd;
-	char	map[10000];
+	size_t	i;
+	char	*str;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	while (i < len && s[i] && ft_strlen(s) > (size_t)start)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		str[i] = ((char *)s)[start + i];
+		i++;
 	}
-	return (0);
+	str[i] = '\0';
+	return (str);
 }

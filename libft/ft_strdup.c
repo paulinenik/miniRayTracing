@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/03 17:45:15 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 21:22:55 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+char	*ft_strdup(const char *src)
 {
-	int		fd;
-	char	map[10000];
+	int		i;
+	int		len;
+	char	*dst;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	len = ft_strlen(src);
+	dst = (char *)malloc(len + 1);
+	if (dst == NULL)
+		return (NULL);
+	while (i < len)
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		dst[i] = src[i];
+		i++;
 	}
-	return (0);
+	dst[len] = '\0';
+	return (dst);
 }

@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 20:54:23 by rgordon          ###   ########.fr       */
+/*   Created: 2020/11/06 20:55:34 by rgordon           #+#    #+#             */
+/*   Updated: 2020/11/12 18:18:31 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int argc, int argv)
+char	*ft_strnstr(const char *str, const char *substr, size_t len)
 {
-	int		fd;
-	char	map[10000];
+	size_t	i;
+	size_t	j;
+	int		index;
 
-	if (argc == 1)
-		ft_printf("A map required. Please, try again.\n");
-	else
+	i = 0;
+	j = 0;
+	index = 0;
+	if (substr[j] == '\0')
+		return ((char *)str);
+	while (i < len && str[i])
 	{
-		fd = open(argv[1], O_RDWR);
-		if ((parse(fd) == -1))
-			ft_printf("An error encountered while reading. Please, try again.\n");
-		close(fd);
+		index = i;
+		while (str[i] == substr[j] && i < len)
+		{
+			i++;
+			j++;
+			if (substr[j] == '\0')
+				return (&((char *)str)[index]);
+		}
+		j = 0;
+		i = index + 1;
 	}
-	return (0);
+	return (NULL);
 }
