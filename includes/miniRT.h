@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/05 22:38:24 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/06 18:17:08 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct	s_xyz {
 }				t_xyz;
 
 typedef struct	s_rgb {
-	t_rgb		color;
+	int			red;
+	int			green;
+	int			blue;
 }				t_rgb;
 
 typedef struct	s_resolution {
@@ -97,9 +99,9 @@ typedef struct	s_triangle {
 }				t_triangle;
 
 typedef struct	s_scene {
-	t_resolution	resolution;
-	t_ambient		amb_light;
-	t_double_list	*camera;
+	t_resolution	r;
+	t_ambient		a;
+	t_double_list	*cam;
 	t_list			*light;
 	t_list			*sp;
 	t_list			*pl;
@@ -108,4 +110,5 @@ typedef struct	s_scene {
 	t_list			*tr;
 }				t_scene;
 
+int			rt_atoi(const char *str);
 #endif
