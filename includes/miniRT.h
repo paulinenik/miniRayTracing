@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/06 18:17:08 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/07 22:03:30 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include	<stdio.h>
 #include	<string.h>
 #include	<math.h>
-#include	<mlx.h>
+//#include	<mlx.h>
 #include	"libft.h"
 #include	"get_next_line.h"
 
@@ -110,5 +110,8 @@ typedef struct	s_scene {
 	t_list			*tr;
 }				t_scene;
 
-int			rt_atoi(const char *str);
+int			rt_atoi(char **str);
+t_rgb	atorgb(char *str);
+double			ft_atof(char *str);
+
 #endif

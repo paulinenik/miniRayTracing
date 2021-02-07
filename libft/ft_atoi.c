@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:58:04 by rgordon           #+#    #+#             */
-/*   Updated: 2020/11/12 21:52:41 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/07 21:10:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,23 @@ static int	white_space(char c)
 
 int			ft_atoi(const char *str)
 {
-	int i;
 	int sign;
 	int num;
 
-	i = 0;
 	sign = 1;
 	num = 0;
-	while (white_space(str[i]) == 1)
-		i++;
-	if (str[i] == '+' || (str[i] == '-'))
+	while (white_space(*str))
+		str++;
+	if (*str == '+' || (*str == '-'))
 	{
-		if (str[i] == '-')
+		if (*str == '-')
 			sign = -1;
-		i++;
+		str++;
 	}
-	while ((str[i] >= '0') && (str[i] <= '9'))
+	while (!ft_isdigit(*str))
 	{
-		num = num * 10 + str[i] - 48;
-		i++;
-		if ((!((str[i] >= '0') && (str[i] <= '9'))) || (str[i] == '\0'))
-			return (num * sign);
+		num = num * 10 + *str - 48;
+		str++;
 	}
-	return (0);
+	return (num * sign);
 }
