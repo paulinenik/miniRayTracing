@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:13:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/07 22:02:44 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:26:59 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	parse_resolution(char *line, t_scene *scene)
 	//"map error resolution corruped"
 	// if (arr[3])
 	// 	printf("map error extra chars\n");
+	//free arr
 	printf("width is %d height is %d", scene->r.width, scene->r.height);
 }
 
