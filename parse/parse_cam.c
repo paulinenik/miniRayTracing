@@ -6,26 +6,32 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 22:24:46 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 16:26:48 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:23:02 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	parse_cam(char *line, t_scene scene)
+void	parse_cam(char *line, t_scene *scene)
 {
-	char **arr;
+	t_camera *cam;
+	t_dlist	*new;
+	char	**arr;
 
 	arr = ft_split(line, ' ');
-	// if (!arr)
-	// 	printf("Malloc error");
-	if (ft_strncmp(arr[0], "c", ft_strlen(arr[0])))
+	cam = (t_camera *)malloc(sizeof (t_camera));
+	if (!cam || !arr)
+	//malloc error
+	if (ft_strncmp(arr[0], "cam", ft_strlen(arr[0])))
 		printf("map error element doesn't exist\n");
-	scene->cam = 
-	scene->r.height = rt_atoi(arr[2]);
-	if (scene->r.width <= 0 || scene->r.height <= 0)
-	//"map error resolution corruped"
+	cam->point = ato_xyz(arr[1]);
+	cam->vector = ato_xyz(arr[2]);
+	cam->fov = rt_atoi(arr[3]);
 	// if (arr[4])
 	// 	printf("map error extra chars\n");
-	// free(arr)
+	new = ft_dlstnew(cam);
+	if (!new)
+	// malloc error
+	ft_dlstadd(&scene->cam, new);
+	//free arr
 }
