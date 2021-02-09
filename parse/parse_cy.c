@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 17:10:29 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/09 23:48:34 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	parse_cy(char *line, t_scene *scene)
 	arr = ft_split(line, ' ');
 	cy = (t_cylinder *)malloc(sizeof (t_cylinder));
 	if (!cy || !arr)
-	//malloc error
+		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "cy", ft_strlen(arr[0])))
-		printf("map error element doesn't exist\n");
-	cy->point = ato_xyz(arr[1]);
-	cy->vector = ato_xyz(arr[2]);
-	cy->diameter = ft_atof(arr[3]);
-	cy->height = ft_atof(arr[4]);
-	cy->color = atorgb(arr[5]);
-	// if (arr[6])
-	// 	printf("map error extra chars\n");
+		ft_error_rt(MAP_INVALID, scene);
+	cy->point = ato_xyz(arr[1], scene);
+	cy->vector = ato_xyz(arr[2], scene);
+	cy->diameter = ft_atof(&arr[3], scene);
+	cy->height = ft_atof(&arr[4], scene);
+	cy->color = atorgb(arr[5], scene);
+	if (arr[6])
+	 	ft_error_rt(MAP_INVALID, scene);
 	new = ft_lstnew(cy);
 	if (!new)
-	// malloc error
+		ft_error_rt(MALLOC_ERR, scene);
 	ft_lstadd_back(&scene->cy, new);
 	//free arr
 }

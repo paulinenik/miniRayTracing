@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 17:12:00 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 01:51:37 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-
+# define BUFFER_SIZE	10
 #include	<stdlib.h>
 #include	<unistd.h>
 #include	<fcntl.h>
@@ -24,12 +24,13 @@
 //#include	<mlx.h>
 #include	"libft.h"
 #include	"get_next_line.h"
+//error_rt#include	"rterror.h"
 
-typedef struct	s_double_list {
+typedef struct	s_dlist {
 	void					*data;
-	struct s_double_list	*prev;	
-	struct s_double_list	*next;	
-}				t_double_list;
+	struct s_dlist	*prev;	
+	struct s_dlist	*next;	
+}				t_dlist;
 
 typedef struct	s_xyz {
 	double		x;
@@ -102,7 +103,7 @@ typedef struct	s_triangle {
 typedef struct	s_scene {
 	t_resolution	r;
 	t_ambient		a;
-	t_double_list	*cam;
+	t_dlist			*cam;
 	t_list			*light;
 	t_list			*sp;
 	t_list			*pl;
@@ -111,9 +112,39 @@ typedef struct	s_scene {
 	t_list			*tr;
 }				t_scene;
 
-int			rt_atoi(char **str);
-t_rgb	atorgb(char *str);
-double			ft_atof(char **str);
-t_xyz	ato_xyz(char *str);
+typedef enum	errors {
+	MAP_REQUIRED, //argc == 1
+	MAP_CONF_ERR, //not .rt file
+	OPEN_ERR, //open < 0
+	READ_ERR, //gnl -1
+	WRONG_ARG_ERR, // argv mistake
+	COUNT_ARG_ERR, //argc > 3
+	MALLOC_ERR,
+	MAP_INVALID, //лишние символы карты
+	MAP_R_ERR, //resol out of range
+	MAP_BRIGHT_ERR, //brightness out of range
+	COLOR_OUT_RANGE
+}				t_errors;
+
+void		ft_error_rt(int errno, t_scene *scene);
+void		ft_error(int errno);
+int			rt_atoi(char **str, t_scene *scene);
+t_rgb		atorgb(char *str, t_scene *scene);
+double		ft_atof(char **str, t_scene *scene);
+t_xyz		ato_xyz(char *str, t_scene *scene);
+t_dlist		*ft_dlstnew(void *content);
+void		ft_dlstadd(t_dlist **lst, t_dlist *new);
+void		parse(int fd);
+void		init_scene(t_scene **scene);
+void		get_scene(char *line, t_scene *scene);
+void		parse_resolution(char *line, t_scene *scene);
+void		parse_ambient(char *line, t_scene *scene);
+void		parse_cam(char *line, t_scene *scene);
+void		parse_light(char *str, t_scene *scene);
+void		parse_sp(char *line, t_scene *scene);
+void		parse_pl(char *line, t_scene *scene);
+void		parse_cy(char *line, t_scene *scene);
+void		parse_sq(char *line, t_scene *scene);
+void		parse_tr(char *line, t_scene *scene);
 
 #endif

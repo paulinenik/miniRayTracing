@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:48:48 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 16:32:05 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 02:19:59 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		ft_isspace(int c)
 	return (0);
 }
 
-int			rt_atoi(char **str)
+int			rt_atoi(char **str, t_scene *scene)
 {
 	int num;
 	int sign;
@@ -31,20 +31,23 @@ int			rt_atoi(char **str)
 		sign = -1;
 		(*str)++;
 	}
-	// if (!ft_isdigit(**str))
-	// 	// map error
-	while (ft_isdigit(**str))
+	if (!ft_isdigit(**str))
+		ft_error_rt(MAP_INVALID, scene);
+ 	while (ft_isdigit(**str))
 	{
 		num = num * 10 + **str - 48;
 		(*str)++;
-		if (!ft_isdigit(**str))
-			if (!ft_isspace(**str) && **str)
-				printf("map error\n");
 	}
+	if (**str)
+	{
+		if (!ft_isspace(**str))
+			ft_error_rt(MAP_INVALID, scene);
+	}
+	//	printf("hello |%c|\n", **str);
 	return (num * sign);
 }
 
-double			ft_atof(char **str)
+double			ft_atof(char **str, t_scene *scene)
 {
 	int sign;
 	int temp;
@@ -73,7 +76,7 @@ double			ft_atof(char **str)
 			temp++;
 		if (!ft_isdigit(**str))
 			if (!ft_isspace(**str) && **str)
-				printf("map error\n");
+				ft_error_rt(MAP_INVALID, scene);
 	}
 	while (temp > 1)
 	{
@@ -83,45 +86,42 @@ double			ft_atof(char **str)
 	return (num * sign);
 }
 
-t_rgb	atorgb(char *str)
+t_rgb	atorgb(char *str, t_scene *scene)
 {
 	t_rgb	color;
+	char	**arr;
 
-	color.red = rt_atoi(&str);
-	if(*str == ',')
-		str++;
-	else
-		printf("map error\n");
-	color.green = rt_atoi(&str);
-	printf("%s\n", str);
-	if(*str == ',')
-		str++;
-	else
-		printf("map error\n");
-	color.blue = rt_atoi(&str);
+	arr = ft_split(str, ',');
+	if (!arr)
+		ft_error_rt(MALLOC_ERR, scene);
+	color.red = rt_atoi(&arr[0], scene);
+	color.green = rt_atoi(&arr[1], scene);
+	color.blue = rt_atoi(&arr[2], scene);
+	if (arr[3])
+		ft_error_rt(MAP_INVALID, scene);
 	if (color.red < 0 || color.red > 255)
-		printf("map error color corrupted\n");
+		ft_error_rt(COLOR_OUT_RANGE, scene);
 	if (color.green < 0 || color.green > 255)
-		printf("map error color corrupted\n");
+		ft_error_rt(COLOR_OUT_RANGE, scene);
 	if (color.blue < 0 || color.blue > 255)
-		printf("map error color corrupted\n");
+		ft_error_rt(COLOR_OUT_RANGE, scene);
+	//free arr
 	return (color);
 }
 
-t_xyz	ato_xyz(char *str)
+t_xyz	ato_xyz(char *str, t_scene *scene)
 {
 	t_xyz	coo;
+	char	**arr;
 
-	coo.x = ft_atof(&str);
-	if(*str == ',')
-		str++;
-	else
-		printf("map error\n");
-	coo.y = ft_atof(&str);
-	if(*str == ',')
-		str++;
-	else
-		printf("map error\n");
-	coo.z = ft_atof(&str);
+	arr = ft_split(str, ',');
+	if (!arr)
+		ft_error_rt(MALLOC_ERR, scene);
+	coo.x = ft_atof(&arr[0], scene);
+	coo.y = ft_atof(&arr[1], scene);
+	coo.z = ft_atof(&arr[2], scene);
+	if (arr[4])
+		ft_error_rt(MAP_INVALID, scene);
+	//free arr
 	return(coo);
 }

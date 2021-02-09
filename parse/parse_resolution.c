@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:13:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 16:26:59 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 02:03:23 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,15 @@ void	parse_resolution(char *line, t_scene *scene)
 	char **arr;
 
 	arr = ft_split(line, ' ');
-	// if (!arr)
-	// 	printf("Malloc error");
+	if (!arr)
+		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "R", ft_strlen(arr[0])))
-		printf("map error element doesn't exist\n");
-	scene->r.width = rt_atoi(arr[1]);
-	scene->r.height = rt_atoi(arr[2]);
+		ft_error_rt(MAP_INVALID, scene);
+	scene->r.width = rt_atoi(&arr[1], scene);
+	scene->r.height = rt_atoi(&arr[2], scene);
 	if (scene->r.width <= 0 || scene->r.height <= 0)
-	//"map error resolution corruped"
-	// if (arr[3])
-	// 	printf("map error extra chars\n");
+		ft_error_rt(MAP_R_ERR, scene);
+	if (arr[3])
+		ft_error_rt(MAP_INVALID, scene);
 	//free arr
-	printf("width is %d height is %d", scene->r.width, scene->r.height);
-}
-
-int		main(void)
-{
-	t_scene *scene;
-
-	scene = (t_scene *)malloc(sizeof (t_scene));
-	parse_resolution("Rs 19f20 1080 kd", scene);
-	return (0);
 }

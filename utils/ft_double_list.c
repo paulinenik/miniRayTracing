@@ -6,20 +6,20 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:28:40 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 18:21:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/09 23:03:51 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_dlist	*ft_dlstnew(void *content)
+t_dlist	*ft_dlstnew(void *data)
 {
 	t_dlist *new;
 
 	new = (t_dlist *)malloc(sizeof(t_dlist));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->data = data;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:12:36 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 16:58:50 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/09 23:50:40 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ void	parse_sp(char *line, t_scene *scene)
 	t_list	*new;
 	char	**arr;
 
-	arr = ft_split(str, ' ');
+	arr = ft_split(line, ' ');
 	sp = (t_sphere *)malloc(sizeof (t_sphere));
 	if (!sp || !arr)
-	//malloc error
+		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "sp", ft_strlen(arr[0])))
-		printf("map error element doesn't exist\n");
-	sp->center = ato_xyz(arr[1]);
-	sp->diameter = ft_atof(arr[2]);
-	sp->color = atorgb(arr[3]);
-	// if (arr[4])
-	// 	printf("map error extra chars\n");
+		ft_error_rt(MAP_INVALID, scene);
+	sp->center = ato_xyz(arr[1], scene);
+	sp->diameter = ft_atof(&arr[2], scene);
+	sp->color = atorgb(arr[3], scene);
+	if (arr[4])
+		ft_error_rt(MAP_INVALID, scene);
 	new = ft_lstnew(sp);
 	if (!new)
-	// malloc error
+		ft_error_rt(MALLOC_ERR, scene);
 	ft_lstadd_back(&scene->sp, new);
 	//free arr
 }

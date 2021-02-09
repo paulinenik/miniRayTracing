@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:17:20 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/08 16:26:28 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 02:08:06 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@ void	parse_ambient(char *line, t_scene *scene)
 	char **arr;
 
 	arr = ft_split(line, ' ');
-	// if (!arr)
-	// 	printf("Malloc error");
+	if (!arr)
+		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "A", ft_strlen(arr[0])))
-		printf("map error element doesn't exist\n");
-	scene->a.bright = ft_atof(arr[1]);
+		ft_error_rt(MAP_INVALID, scene);
+	scene->a.bright = ft_atof(&arr[1], scene);
 	if (scene->a.bright < 0 || scene->a.bright > 1)
-		printf("map error brightnes");
-	scene->a.color = atorgb(arr[2]);
-	// if (arr[3])
-	// 	printf("map error extra chars\n");
+		ft_error_rt(MAP_BRIGHT_ERR, scene);
+	scene->a.color = atorgb(arr[2], scene);
+	if (arr[3])
+	 	ft_error_rt(MAP_INVALID, scene);
 	// free(arr)
-	printf("brigthness is %f\n", scene->a.brightness);
-	printf("red %d green %d blue %d", scene->a.color.red, scene->a.color.green, scene->a.color.blue);
 }
