@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:21:14 by rgordon           #+#    #+#             */
-/*   Updated: 2020/12/06 15:04:40 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 17:12:47 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ static char	*checkstore(char **storage, char **line)
 	temp = *storage;
 	tline = *line;
 	endl = NULL;
-	if ((endl = ft_strchr(*storage, '\n')))
+	if ((endl = ft_strchr_gnl(*storage, '\n')))
 	{
 		*endl = '\0';
-		*line = ft_strjoin(*line, *storage);
-		*storage = ft_strdup(++endl);
+		*line = ft_strjoin_gnl(*line, *storage);
+		*storage = ft_strdup_gnl(++endl);
 		free(temp);
 	}
 	else
 	{
-		*line = ft_strjoin(*line, *storage);
+		*line = ft_strjoin_gnl(*line, *storage);
 		free(temp);
+		*storage = NULL;
 		*storage = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	}
 	free(tline);
@@ -58,7 +59,7 @@ int			get_next_line(int fd, char **line)
 
 	if (fd >= 0 && fd < 1024 && BUFFER_SIZE > 0 && line)
 	{
-		*line = ft_strdup("");
+		*line = ft_strdup_gnl("");
 		if (storage && *line)
 		{
 			if (checkstore(&storage, line))

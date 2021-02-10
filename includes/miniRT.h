@@ -6,13 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 01:51:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 17:08:07 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# define BUFFER_SIZE	10
 #include	<stdlib.h>
 #include	<unistd.h>
 #include	<fcntl.h>
@@ -26,8 +25,9 @@
 #include	"get_next_line.h"
 //error_rt#include	"rterror.h"
 
+
 typedef struct	s_dlist {
-	void					*data;
+	struct s_camera			*data;
 	struct s_dlist	*prev;	
 	struct s_dlist	*next;	
 }				t_dlist;

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:48:48 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 02:19:59 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 16:40:20 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_xyz	ato_xyz(char *str, t_scene *scene)
 	coo.x = ft_atof(&arr[0], scene);
 	coo.y = ft_atof(&arr[1], scene);
 	coo.z = ft_atof(&arr[2], scene);
-	if (arr[4])
+	if (arr[3])
 		ft_error_rt(MAP_INVALID, scene);
 	//free arr
 	return(coo);
