@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:21:14 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 17:12:47 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 19:12:52 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static char	*checkstore(char **storage, char **line)
 {

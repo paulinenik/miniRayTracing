@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 15:37:38 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 17:09:51 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 19:12:59 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 size_t	ft_strlen_gnl(const char *s)
 {

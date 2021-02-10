@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 17:08:07 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 19:14:33 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include	<math.h>
 //#include	<mlx.h>
 #include	"libft.h"
-#include	"get_next_line.h"
-//error_rt#include	"rterror.h"
+#include	"rterror.h"
+// #define malloc(x) NULL
 
 
 typedef struct	s_dlist {
