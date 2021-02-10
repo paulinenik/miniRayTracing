@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 19:14:33 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:25:54 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include	<math.h>
 //#include	<mlx.h>
 #include	"libft.h"
-#include	"rterror.h"
+// #include	"rterror.h"
 // #define malloc(x) NULL
 
 
@@ -128,12 +128,17 @@ typedef enum	errors {
 
 void		ft_error_rt(int errno, t_scene *scene);
 void		ft_error(int errno);
-int			rt_atoi(char **str, t_scene *scene);
+void		split_free(char **arr);
+void		scene_free(t_scene *scene);
+
+int			rt_atoi(char *str, t_scene *scene);
 t_rgb		atorgb(char *str, t_scene *scene);
-double		ft_atof(char **str, t_scene *scene);
+double		ft_atof(char *str, t_scene *scene);
 t_xyz		ato_xyz(char *str, t_scene *scene);
+
 t_dlist		*ft_dlstnew(void *content);
 void		ft_dlstadd(t_dlist **lst, t_dlist *new);
+
 void		parse(int fd);
 void		init_scene(t_scene **scene);
 void		get_scene(char *line, t_scene *scene);

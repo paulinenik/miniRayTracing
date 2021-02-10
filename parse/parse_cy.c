@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/09 23:48:34 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:01:16 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	parse_cy(char *line, t_scene *scene)
 		ft_error_rt(MAP_INVALID, scene);
 	cy->point = ato_xyz(arr[1], scene);
 	cy->vector = ato_xyz(arr[2], scene);
-	cy->diameter = ft_atof(&arr[3], scene);
-	cy->height = ft_atof(&arr[4], scene);
+	cy->diameter = ft_atof(arr[3], scene);
+	cy->height = ft_atof(arr[4], scene);
 	cy->color = atorgb(arr[5], scene);
 	if (arr[6])
 	 	ft_error_rt(MAP_INVALID, scene);
@@ -35,5 +35,5 @@ void	parse_cy(char *line, t_scene *scene)
 	if (!new)
 		ft_error_rt(MALLOC_ERR, scene);
 	ft_lstadd_back(&scene->cy, new);
-	//free arr
+	split_free(arr);
 }

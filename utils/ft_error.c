@@ -6,11 +6,35 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 20:02:43 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 02:00:26 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:29:26 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+void	scene_free(t_scene *scene)
+{
+	ft_lstclear(&(scene->light));
+	// ft_lstclear(&(scene->sp));
+	// ft_lstclear(&(scene->pl));
+	// ft_lstclear(&(scene->sq));
+	// ft_lstclear(&(scene->cy));
+	// ft_lstclear(&(scene->tr));
+	// free(scene);
+}
+
+void	split_free(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 void	ft_error(int errno)
 {
@@ -20,25 +44,29 @@ void	ft_error(int errno)
 	err_message[COUNT_ARG_ERR] = "Too many arguments.";
 	err_message[MAP_CONF_ERR] = "Non-compatible extension of map file.";
 	err_message[OPEN_ERR] = "An error encountered while opening map file.";
-	err_message[WRONG_ARG_ERR] = "Invalid option. Try '--help' for more information.";
+	err_message[WRONG_ARG_ERR] = "Invalid option.";
 	ft_putstr_fd("Error.\n", 1);
 	ft_putstr_fd(err_message[errno], 1);
+	ft_putstr_fd(" Please, try again.\n", 1);
+	exit(errno);
 }
 
 void	ft_error_rt(int errno, t_scene *scene)
 {
-	//clear scene;
 	char	*err_message[15];
 
 	err_message[READ_ERR] = "An error encountered while reading map file.";
 	err_message[MALLOC_ERR] = "Memory was not allocated.";
 	err_message[MAP_INVALID] = "Invalid map.";
 	err_message[MAP_R_ERR] = "Invalid resolution values.";
-	err_message[MAP_BRIGHT_ERR] = "The brightness ratio of lightning is out of range.";
+	err_message[MAP_BRIGHT_ERR] = "The brightness ratio of lighting is out of range.";
 	err_message[COLOR_OUT_RANGE] = "Invalid color values.";
-
-	scene->r.height = 0;
+	scene_free(scene);
 	ft_putstr_fd("Error.\n", 1);
 	ft_putstr_fd(err_message[errno], 1);
-	//exit(errno);
+	ft_putstr_fd(" Please, try again.\n", 1);
+	exit(errno);
+	// perror("Error\n");
+	// strerror(errno);
+	// exit(errno);
 }

@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:15:08 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 18:28:10 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:26:10 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void test(t_scene *scene)
+/* static void test(t_scene *scene)
 	{
 		t_light *l;
 		t_sphere *sp;
@@ -73,7 +73,7 @@ static void test(t_scene *scene)
 		printf("point x %f y %f z %f\n", tr->p2.x, tr->p2.y, tr->p2.z);
 		printf("point x %f y %f z %f\n", tr->p3.x, tr->p3.y, tr->p3.z);
 		printf("red %d green %d blue %d\n", tr->color.red, tr->color.green, tr->color.blue);
-	}
+	} */
 	
 void	get_scene(char *line, t_scene *scene)
 {
@@ -104,7 +104,7 @@ void	init_scene(t_scene **scene)
 		ft_error_rt(MALLOC_ERR, *scene);
 	(*scene)->r.width = -1;
 	(*scene)->r.height = -1;
-	(*scene)->a.bright = 0;
+	(*scene)->a.bright = -1;
 	(*scene)->cam = NULL;
 	(*scene)->light = NULL;
 	(*scene)->sp = NULL;
@@ -121,6 +121,7 @@ void		parse(int fd)
 	int		gnl;
 	
 	scene = NULL;
+	line = NULL;
 	init_scene(&scene);
 	while ((gnl = get_next_line(fd, &line)))
 	{
@@ -139,6 +140,9 @@ void		parse(int fd)
 	line = NULL;
 	if (gnl == -1)
 		ft_error_rt(READ_ERR, scene);
+	scene_free(scene);
+	while(1)
+		gnl = 1;
 	// return scene or go further
-	test(scene);
+	// test(scene);
 }

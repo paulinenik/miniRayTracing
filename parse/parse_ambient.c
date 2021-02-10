@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:17:20 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 02:08:06 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:05:04 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ void	parse_ambient(char *line, t_scene *scene)
 {
 	char **arr;
 
+	if (scene->a.bright != -1)
+		ft_error_rt(MAP_INVALID, scene);
 	arr = ft_split(line, ' ');
 	if (!arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "A", ft_strlen(arr[0])))
 		ft_error_rt(MAP_INVALID, scene);
-	scene->a.bright = ft_atof(&arr[1], scene);
+	scene->a.bright = ft_atof(arr[1], scene);
 	if (scene->a.bright < 0 || scene->a.bright > 1)
 		ft_error_rt(MAP_BRIGHT_ERR, scene);
 	scene->a.color = atorgb(arr[2], scene);
 	if (arr[3])
 	 	ft_error_rt(MAP_INVALID, scene);
-	// free(arr)
+	split_free(arr);
 }

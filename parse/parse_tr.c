@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:10:10 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 16:40:29 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 19:35:31 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	parse_tr(char *line, t_scene *scene)
 	if (!new)
 		ft_error_rt(MALLOC_ERR, scene);
 	ft_lstadd_back(&scene->tr, new);
-	//free arr
+	split_free(arr);
 }
