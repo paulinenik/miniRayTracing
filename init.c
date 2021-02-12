@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 19:45:33 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/12 22:53:49 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int	check_ex(char *str)
 {

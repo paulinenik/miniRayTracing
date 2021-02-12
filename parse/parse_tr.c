@@ -6,20 +6,20 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:10:10 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 19:35:31 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_tr(char *line, t_scene *scene)
 {
-	t_triangle *tr;
-	t_list	*new;
-	char	**arr;
+	t_triangle	*tr;
+	t_list		*new;
+	char		**arr;
 
 	arr = ft_split(line, ' ');
-	tr = (t_triangle *)malloc(sizeof (t_triangle));
+	tr = (t_triangle *)malloc(sizeof(t_triangle));
 	if (!tr || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "tr", ft_strlen(arr[0])))

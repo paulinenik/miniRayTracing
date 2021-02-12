@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:59:01 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 19:35:31 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_pl(char *line, t_scene *scene)
 {
@@ -19,7 +19,7 @@ void	parse_pl(char *line, t_scene *scene)
 	char	**arr;
 
 	arr = ft_split(line, ' ');
-	pl = (t_plane *)malloc(sizeof (t_plane));
+	pl = (t_plane *)malloc(sizeof(t_plane));
 	if (!pl || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "pl", ft_strlen(arr[0])))

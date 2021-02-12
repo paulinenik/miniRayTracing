@@ -6,21 +6,21 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 20:02:43 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:29:26 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 22:02:42 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	scene_free(t_scene *scene)
 {
 	ft_lstclear(&(scene->light));
-	// ft_lstclear(&(scene->sp));
-	// ft_lstclear(&(scene->pl));
-	// ft_lstclear(&(scene->sq));
-	// ft_lstclear(&(scene->cy));
-	// ft_lstclear(&(scene->tr));
-	// free(scene);
+	ft_lstclear(&(scene->sp));
+	ft_lstclear(&(scene->pl));
+	ft_lstclear(&(scene->sq));
+	ft_lstclear(&(scene->cy));
+	ft_lstclear(&(scene->tr));
+	free(scene);
 }
 
 void	split_free(char **arr)
@@ -59,14 +59,13 @@ void	ft_error_rt(int errno, t_scene *scene)
 	err_message[MALLOC_ERR] = "Memory was not allocated.";
 	err_message[MAP_INVALID] = "Invalid map.";
 	err_message[MAP_R_ERR] = "Invalid resolution values.";
-	err_message[MAP_BRIGHT_ERR] = "The brightness ratio of lighting is out of range.";
+	err_message[MAP_BRIGHT_ERR] = "The brightness of light is out of range.";
 	err_message[COLOR_OUT_RANGE] = "Invalid color values.";
 	scene_free(scene);
+	// if (scene)
+	// 	scene->a.bright = 1;
 	ft_putstr_fd("Error.\n", 1);
 	ft_putstr_fd(err_message[errno], 1);
 	ft_putstr_fd(" Please, try again.\n", 1);
 	exit(errno);
-	// perror("Error\n");
-	// strerror(errno);
-	// exit(errno);
 }

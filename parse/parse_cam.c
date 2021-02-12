@@ -6,20 +6,20 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 22:24:46 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 19:58:38 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_cam(char *line, t_scene *scene)
 {
-	t_camera *cam;
-	t_dlist	*new;
-	char	**arr;
+	t_camera	*cam;
+	t_dlist		*new;
+	char		**arr;
 
 	arr = ft_split(line, ' ');
-	cam = (t_camera *)malloc(sizeof (t_camera));
+	cam = (t_camera *)malloc(sizeof(t_camera));
 	if (!cam || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "c", ft_strlen(arr[0])))

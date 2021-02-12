@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:48:48 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:01:43 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
-static int		ft_isspace(int c)
+static int	ft_isspace(int c)
 {
 	if (c == 32)
 		return (1);
@@ -21,8 +21,8 @@ static int		ft_isspace(int c)
 
 int			rt_atoi(char *str, t_scene *scene)
 {
-	int num;
-	int sign;
+	int		num;
+	int		sign;
 	char	*temp;
 
 	num = 0;
@@ -35,7 +35,7 @@ int			rt_atoi(char *str, t_scene *scene)
 	}
 	if (!ft_isdigit(*temp))
 		ft_error_rt(MAP_INVALID, scene);
- 	while (ft_isdigit(*temp))
+	while (ft_isdigit(*temp))
 	{
 		num = num * 10 + *temp - 48;
 		temp++;
@@ -45,17 +45,16 @@ int			rt_atoi(char *str, t_scene *scene)
 		if (!ft_isspace(*temp))
 			ft_error_rt(MAP_INVALID, scene);
 	}
-	//	printf("hello |%c|\n", **str);
 	return (num * sign);
 }
 
-double			ft_atof(char *str, t_scene *scene)
+double		ft_atof(char *str, t_scene *scene)
 {
-	int sign;
-	int temp;
-	double num;
-	int dot;
-	char *tmp;
+	int		sign;
+	int		temp;
+	double	num;
+	int		dot;
+	char	*tmp;
 
 	dot = 0;
 	sign = 1;
@@ -90,7 +89,7 @@ double			ft_atof(char *str, t_scene *scene)
 	return (num * sign);
 }
 
-t_rgb	atorgb(char *str, t_scene *scene)
+t_rgb		atorgb(char *str, t_scene *scene)
 {
 	t_rgb	color;
 	char	**arr;
@@ -113,7 +112,7 @@ t_rgb	atorgb(char *str, t_scene *scene)
 	return (color);
 }
 
-t_xyz	ato_xyz(char *str, t_scene *scene)
+t_xyz		ato_xyz(char *str, t_scene *scene)
 {
 	t_xyz	coo;
 	char	**arr;
@@ -127,5 +126,5 @@ t_xyz	ato_xyz(char *str, t_scene *scene)
 	if (arr[3])
 		ft_error_rt(MAP_INVALID, scene);
 	split_free(arr);
-	return(coo);
+	return (coo);
 }

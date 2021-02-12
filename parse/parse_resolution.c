@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:13:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:05:16 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_resolution(char *line, t_scene *scene)
 {

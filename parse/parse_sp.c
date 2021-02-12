@@ -6,20 +6,20 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:12:36 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:01:16 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_sp(char *line, t_scene *scene)
 {
-	t_sphere *sp;
-	t_list	*new;
-	char	**arr;
+	t_sphere	*sp;
+	t_list		*new;
+	char		**arr;
 
 	arr = ft_split(line, ' ');
-	sp = (t_sphere *)malloc(sizeof (t_sphere));
+	sp = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sp || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "sp", ft_strlen(arr[0])))

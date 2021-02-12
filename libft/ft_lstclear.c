@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:04:31 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:28:53 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 21:12:38 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ void	ft_lstclear(t_list **lst)
 		*lst = (*lst)->next;
 		free(temp);
 	}
-	free(lst);
-	lst = NULL;
+	*lst = NULL;
 }

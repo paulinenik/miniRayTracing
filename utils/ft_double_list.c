@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:28:40 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 16:21:15 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 t_dlist	*ft_dlstnew(void *data)
 {
@@ -29,7 +29,6 @@ void	ft_dlstadd(t_dlist **lst, t_dlist *new)
 {
 	if (*lst && (*lst)->next)
 	{
-		
 		new->next = (*lst)->next;
 		(*lst)->next = new;
 		(*lst) = new->next;

@@ -6,20 +6,20 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:02:50 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:01:16 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_sq(char *line, t_scene *scene)
 {
-	t_square *sq;
-	t_list	*new;
-	char	**arr;
+	t_square	*sq;
+	t_list		*new;
+	char		**arr;
 
 	arr = ft_split(line, ' ');
-	sq = (t_square *)malloc(sizeof (t_square));
+	sq = (t_square *)malloc(sizeof(t_square));
 	if (!sq || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "sq", ft_strlen(arr[0])))

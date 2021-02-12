@@ -6,30 +6,29 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:25:54 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/12 21:11:24 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
-#include	<stdlib.h>
-#include	<unistd.h>
-#include	<fcntl.h>
-#include	<sys/types.h>
-#include	<sys/uio.h>
-#include	<stdio.h>
-#include	<string.h>
-#include	<math.h>
-//#include	<mlx.h>
-#include	"libft.h"
-// #include	"rterror.h"
-// #define malloc(x) NULL
-
+#ifndef minirt_H
+# define minirt_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdio.h>
+# include <string.h>
+# include <math.h>
+# include	<mlx.h>
+# include "libft.h"
+// # include "rterror.h"
+// # define malloc(x) NULL
 
 typedef struct	s_dlist {
-	struct s_camera			*data;
-	struct s_dlist	*prev;	
-	struct s_dlist	*next;	
+	struct s_camera	*data;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
 }				t_dlist;
 
 typedef struct	s_xyz {
@@ -112,7 +111,7 @@ typedef struct	s_scene {
 	t_list			*tr;
 }				t_scene;
 
-typedef enum	errors {
+typedef enum	e_errors {
 	MAP_REQUIRED, //argc == 1
 	MAP_CONF_ERR, //not .rt file
 	OPEN_ERR, //open < 0
@@ -140,7 +139,7 @@ t_dlist		*ft_dlstnew(void *content);
 void		ft_dlstadd(t_dlist **lst, t_dlist *new);
 
 void		parse(int fd);
-void		init_scene(t_scene **scene);
+t_scene		*init_scene(void);
 void		get_scene(char *line, t_scene *scene);
 void		parse_resolution(char *line, t_scene *scene);
 void		parse_ambient(char *line, t_scene *scene);
@@ -151,5 +150,5 @@ void		parse_pl(char *line, t_scene *scene);
 void		parse_cy(char *line, t_scene *scene);
 void		parse_sq(char *line, t_scene *scene);
 void		parse_tr(char *line, t_scene *scene);
-
+void		test(t_scene *scene);
 #endif

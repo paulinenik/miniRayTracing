@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:17:20 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:05:04 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_ambient(char *line, t_scene *scene)
 {
@@ -28,6 +28,6 @@ void	parse_ambient(char *line, t_scene *scene)
 		ft_error_rt(MAP_BRIGHT_ERR, scene);
 	scene->a.color = atorgb(arr[2], scene);
 	if (arr[3])
-	 	ft_error_rt(MAP_INVALID, scene);
+		ft_error_rt(MAP_INVALID, scene);
 	split_free(arr);
 }

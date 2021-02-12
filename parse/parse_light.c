@@ -6,11 +6,11 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 22:33:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:01:16 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 void	parse_light(char *str, t_scene *scene)
 {
@@ -19,7 +19,7 @@ void	parse_light(char *str, t_scene *scene)
 	char	**arr;
 
 	arr = ft_split(str, ' ');
-	l = (t_light *)malloc(sizeof (t_light));
+	l = (t_light *)malloc(sizeof(t_light));
 	if (!l || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "l", ft_strlen(arr[0])))
@@ -37,7 +37,3 @@ void	parse_light(char *str, t_scene *scene)
 	ft_lstadd_back(&scene->light, new);
 	split_free(arr);
 }
-
-
-
-	
