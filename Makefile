@@ -3,7 +3,8 @@ VPATH = %.c parse:utils
 SRCS	= 	utils/atort.c utils/ft_double_list.c utils/ft_error.c \
 			parse/parse.c parse/parse_resolution.c parse/parse_ambient.c \
 			parse/parse_cam.c parse/parse_light.c parse/parse_sp.c parse/parse_pl.c \
-			parse/parse_cy.c parse/parse_sq.c parse/parse_tr.c
+			parse/parse_cy.c parse/parse_sq.c parse/parse_tr.c \
+			raytrace/canvastoviewport.c sphere.c
 
 TEST	= test.c
 
@@ -26,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 $(NAME):	$(LIBFT) $(MLX) $(HDRS) 
 			@cp $(LIBFT) .
 			@cp $(MLX) .
-			$(CC) $(CFLAGS) $(SRCS) init.c test.c $(MLX_FLAGS) -Iincludes libft.a libmlx.a  -o $(NAME)
+			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes libft.a libmlx.a  -o $(NAME)
 			@echo "\033[32m||miniRT is compiled sucsessfully||\033[0m"
 
 $(LIBFT):	
@@ -37,16 +38,16 @@ $(MLX):
 			@$(MAKE) -C mlx
 			@echo "\033[32m\n||libmlx is compiled sucsessfully||\033[0m"
 		
-all:		$(LIBFT) $(MLX) 
+all:		$(LIBFT) $(MLX) $(SRCS)
 			$(NAME)
 
 clean:	
-			$(RM) $(NAME) libft.a libmlx.a
+			$(RM) $(NAME) 
 
 fclean:		clean
 			make fclean -C libft/
 			make clean -C mlx/
-			$(RM) $(NAME)
+			$(RM) $(NAME) libft.a libmlx.a
 
 re:			fclean all
 

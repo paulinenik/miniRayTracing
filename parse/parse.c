@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:15:08 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/12 22:33:15 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/14 18:28:58 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ void	parse(int fd)
 	line = NULL;
 	if (gnl == -1)
 		ft_error_rt(READ_ERR, scene);
-	test(scene);
-	scene_free(scene);
+	// test(scene);
+	spherert(scene);
+	// scene_free(scene);
 	// while (1)
 	// 	gnl = 1;
 	// return scene or go further

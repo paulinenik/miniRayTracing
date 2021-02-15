@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 20:37:04 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/12 22:33:54 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/12 23:14:29 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,19 @@ void test(t_scene *scene)
 		mlx_win = mlx_new_window(mlx, scene->r.width, scene->r.height, "miniRT");
 		img.img = mlx_new_image(mlx, scene->r.width, scene->r.height);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-		x = scene->r.width;
-		y = scene->r.height;
+		x = 5;
+		y = 5;
 		// offset = (y * img.line_length + x * (img.bits_per_pixel / 8));
-		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
+		while (y < 65)
+		{
+			while (x < 65)
+			{
+				my_mlx_pixel_put(&img, x, y, create_trgb(0, cy->color.red, cy->color.green, cy->color.blue));
+				x++;
+			}
+			y++;
+			x = 5;
+		}
 		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 		mlx_loop(mlx);
 	}
