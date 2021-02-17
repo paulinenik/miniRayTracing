@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/15 22:12:08 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:07:59 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,15 +154,16 @@ void		parse_tr(char *line, t_scene *scene);
 void		test(t_scene *scene);
 
 double		vect_scalar(t_xyz a, t_xyz b);
+t_xyz		vect_norm(double a, t_xyz dot);
 t_xyz	vect_direction(t_xyz end, t_xyz start);
 void	spherert(t_scene *scene);
-t_xyz	canvastoviewport(double x, double y, int w, int h);
+t_xyz	canvastoviewport(double x, double y, t_resolution res, int fov);
 double	intersection(t_xyz o, t_xyz v, t_sphere *sp);
 t_xyz	vect_sum(t_xyz end, t_xyz start);
 t_xyz		vect_mult(double a, t_xyz dot);
 double		vlen(t_xyz v);
-double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c);
-t_rgb	lightcolor(t_rgb color, double i);
+double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a);
+int	lightcolor(t_rgb color, double i);
 
 // void		pixel(t_scene *scene);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:48:48 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/17 16:50:33 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ double		ft_atof(char *str, t_scene *scene)
 		sign = -1;
 		tmp++;
 	}
+	// if (!ft_isdigit(*tmp))
+	// 	ft_error_rt(MAP_INVALID, scene);
 	while (ft_isdigit(*tmp))
 	{
 		num = num * 10 + *tmp - 48;

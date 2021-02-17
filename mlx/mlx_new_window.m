@@ -433,13 +433,13 @@ int get_mouse_button(NSEventType eventtype)
   if (mlx_shaders(&glsl))
     return (0);
 
-  glUseProgram(glsl.pixel_program);
+  glUnormrogram(glsl.pixel_program);
   glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_program, "texture");
   //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_program, "winhalfsize");
   glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_program, "position");
   //      printf("err? 0x%x\n", glGetError());
 
-  glUseProgram(glsl.image_program);
+  glUnormrogram(glsl.image_program);
   glsl.loc_image_texture = glGetUniformLocation(glsl.image_program, "texture");
   glsl.loc_image_pos = glGetUniformLocation(glsl.image_program, "imagepos");
   glsl.loc_image_size = glGetUniformLocation(glsl.image_program, "imagesize");
@@ -447,7 +447,7 @@ int get_mouse_button(NSEventType eventtype)
   glsl.loc_image_position = glGetAttribLocation(glsl.image_program, "position");
   //      printf("err? 0x%x\n", glGetError());
 
-  glUseProgram(glsl.font_program);
+  glUnormrogram(glsl.font_program);
   glsl.loc_font_texture = glGetUniformLocation(glsl.font_program, "texture");
   glsl.loc_font_color = glGetUniformLocation(glsl.font_program, "color");
   glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_program, "fontposinwin");
@@ -549,7 +549,7 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb >0)
     [self mlx_gl_draw];
 
-  glUseProgram(glsl.image_program);
+  glUnormrogram(glsl.image_program);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
@@ -584,7 +584,7 @@ int get_mouse_button(NSEventType eventtype)
   color_tab[1] = ((float)((color&0xFF00)>>8))/255.0;
   color_tab[2] = ((float)((color&0xFF)>>0))/255.0;
   color_tab[3] = 1.0;
-  glUseProgram(glsl.font_program);
+  glUnormrogram(glsl.font_program);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
@@ -615,7 +615,7 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb <= 0)
     return ;
 
-  glUseProgram(glsl.pixel_program);
+  glUnormrogram(glsl.pixel_program);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, pixel_vbuffer);
