@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/17 22:16:54 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/25 16:31:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,27 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-t_xyz	canvastoviewport(double x, double y, t_resolution res, int fov)
+t_xyz	canvastoviewport(double x, double y, t_resolution res, t_camera *cam)
 {
-	t_xyz	d;
 	double	fv;
+	t_xyz	d;
+	t_xyz	up;
+	t_xyz	right;
+	t_xyz	new_d;
 
-	fv = tan(fov * (M_PI / 360)) * 2;
-	d.x = ((float)x - (res.width / 2)) / res.width * fv;
-	d.y = ((res.height / 2) - (float)y) / res.height * fv;
+	cam->veMa	ctor = vect_norm(vlen(cam->vector), cam->vector);
+	fv = tan(cam->fov * M_PI / 360) * 2;
+	d.x = (x - (res.width / 2.0)) / res.width * fv;
+	d.y = ((res.height / 2.0) - y) / res.height * fv;
 	d.z = 1;
-	return(d);
+	right = vector_prod((t_xyz){0.0, 1.0, 0.0}, cam->vector);
+	up = vector_prod(cam->vector, right);
+	new_d.x = right.x * d.x + right.y * d.y + right.z * d.z;
+	new_d.y = up.x * d.x + up.y * d.y + up.z * d.z;
+	new_d.z = cam->vector.x * d.x + cam->vector.y * d.y + cam->vector.z * d.z;
+	return(new_d);
 }
+
 t_xyz	vect_sum(t_xyz a, t_xyz b)
 {
 	t_xyz dot;
@@ -38,6 +48,16 @@ t_xyz	vect_sum(t_xyz a, t_xyz b)
 	dot.x = a.x + b.x;
 	dot.y = a.y + b.y;
 	dot.z = a.z + b.z;
+	return (dot);
+}
+
+t_xyz	vector_prod(t_xyz a, t_xyz b)
+{
+	t_xyz dot;
+
+	dot.x = a.y * b.z - a.z * b.y;
+	dot.y = a.z * b.x - a.x * b.z;
+	dot.z = a.x * b.y - a.y * b.x;
 	return (dot);
 }
 

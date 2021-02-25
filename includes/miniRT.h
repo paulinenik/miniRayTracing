@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/17 22:07:59 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/23 19:08:19 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include	<mlx.h>
+# include <mlx.h>
 # include "libft.h"
 # include "my_rt.h"
 // # include "rterror.h"
@@ -69,6 +69,8 @@ typedef struct	s_light {
 typedef struct	s_sphere {
 	t_xyz		center;
 	double		diameter;
+	double		r;
+	double		oc;
 	t_rgb		color;
 }				t_sphere;
 
@@ -99,6 +101,12 @@ typedef struct	s_triangle {
 	t_xyz		p3;
 	t_rgb		color;
 }				t_triangle;
+
+typedef struct	s_pixel {
+	double		t;
+	t_rgb		rgb;
+	int			color;
+}				t_pixel;
 
 typedef struct	s_scene {
 	t_resolution	r;
@@ -156,14 +164,19 @@ void		test(t_scene *scene);
 double		vect_scalar(t_xyz a, t_xyz b);
 t_xyz		vect_norm(double a, t_xyz dot);
 t_xyz	vect_direction(t_xyz end, t_xyz start);
-void	spherert(t_scene *scene);
-t_xyz	canvastoviewport(double x, double y, t_resolution res, int fov);
+t_xyz	canvastoviewport(double x, double y, t_resolution res, t_camera *cam);
 double	intersection(t_xyz o, t_xyz v, t_sphere *sp);
+double	intersection_shadow(t_xyz o, t_xyz v, t_list *sphere);
 t_xyz	vect_sum(t_xyz end, t_xyz start);
 t_xyz		vect_mult(double a, t_xyz dot);
 double		vlen(t_xyz v);
-double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a);
+double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a, t_list *sp);
 int	lightcolor(t_rgb color, double i);
 
-// void		pixel(t_scene *scene);
+void	init_img(t_scene *scene);
+void	rt_image(t_scene *scene, t_data *img);
+int		trace_figures(t_scene *scene, t_xyz v);
+void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+t_xyz	vector_prod(t_xyz a, t_xyz b);
+
 #endif

@@ -4,7 +4,7 @@ SRCS	= 	utils/atort.c utils/ft_double_list.c utils/ft_error.c \
 			parse/parse.c parse/parse_resolution.c parse/parse_ambient.c \
 			parse/parse_cam.c parse/parse_light.c parse/parse_sp.c parse/parse_pl.c \
 			parse/parse_cy.c parse/parse_sq.c parse/parse_tr.c \
-			raytrace/canvastoviewport.c sphere.c
+			raytrace/canvastoviewport.c init_img.c
 
 TEST	= test.c
 
@@ -24,7 +24,7 @@ RM		= rm -f
 
 CFLAGS = -Wall -Wextra -Werror
 
-$(NAME):	$(LIBFT) $(MLX) $(HDRS) 
+$(NAME):	$(LIBFT) $(MLX) $(HDRS) $(SRCS)
 			@cp $(LIBFT) .
 			@cp $(MLX) .
 			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes libft.a libmlx.a  -o $(NAME)
