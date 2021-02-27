@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/23 19:08:19 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/27 20:15:34 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,20 +163,30 @@ void		test(t_scene *scene);
 
 double		vect_scalar(t_xyz a, t_xyz b);
 t_xyz		vect_norm(double a, t_xyz dot);
-t_xyz	vect_direction(t_xyz end, t_xyz start);
-t_xyz	canvastoviewport(double x, double y, t_resolution res, t_camera *cam);
-double	intersection(t_xyz o, t_xyz v, t_sphere *sp);
-double	intersection_shadow(t_xyz o, t_xyz v, t_list *sphere);
-t_xyz	vect_sum(t_xyz end, t_xyz start);
+t_xyz		vect_direction(t_xyz end, t_xyz start);
+t_xyz		canvastoviewport(double x, double y, t_resolution res, t_camera *cam);
+double		intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
+// double		intersection_shadow(t_xyz o, t_xyz v, t_list *sphere);
+t_xyz		vect_sum(t_xyz end, t_xyz start);
 t_xyz		vect_mult(double a, t_xyz dot);
 double		vlen(t_xyz v);
-double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a, t_list *sp);
-int	lightcolor(t_rgb color, double i);
+// double		lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a, t_list *sp);
+int			lightcolor(t_rgb color, double i);
 
-void	init_img(t_scene *scene);
-void	rt_image(t_scene *scene, t_data *img);
-int		trace_figures(t_scene *scene, t_xyz v);
-void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-t_xyz	vector_prod(t_xyz a, t_xyz b);
+void		init_img(t_scene *scene);
+void		rt_image(t_scene *scene, t_data *img);
+int			trace_figures(t_scene *scene, t_xyz v);
+void		rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+t_xyz		vector_prod(t_xyz a, t_xyz b);
+
+
+void		rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double		intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
+
+double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene);
+double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
+double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
+double	shadow_pl(t_xyz o, t_xyz v, t_list *plane);
+double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene);
 
 #endif

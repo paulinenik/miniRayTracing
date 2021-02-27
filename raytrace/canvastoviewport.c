@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/25 16:31:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/25 20:12:34 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_xyz	canvastoviewport(double x, double y, t_resolution res, t_camera *cam)
 	t_xyz	right;
 	t_xyz	new_d;
 
-	cam->veMa	ctor = vect_norm(vlen(cam->vector), cam->vector);
+	cam->vector = vect_norm(vlen(cam->vector), cam->vector);
 	fv = tan(cam->fov * M_PI / 360) * 2;
 	d.x = (x - (res.width / 2.0)) / res.width * fv;
 	d.y = ((res.height / 2.0) - y) / res.height * fv;
