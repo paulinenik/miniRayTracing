@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:02:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 19:33:59 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/27 22:13:23 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 		}
 		sp_list = sp_list->next;
 	}
-	pixel->color = lightcolor(pixel->rgb, i);	
+	pixel->color = apply_intensity(pixel->rgb, i);	
 }
 
 double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)

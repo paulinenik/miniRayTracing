@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:05:13 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 20:16:00 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/27 22:15:46 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 			pixel->t = t;
 			pixel->rgb = pl->color;
 			i = lighting_pl(o, v, pixel, pl, scene);
-			pixel->color = lightcolor(pixel->rgb, i);
+			pixel->color = apply_intensity(pixel->rgb, i);
 		}
 		pl_list = pl_list->next;
 	}	
-	// pixel->color = lightcolor(pixel->rgb, i);
 }
 
 double	intersection_pl(t_xyz o, t_xyz v, t_plane *pl)
