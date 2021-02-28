@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 22:23:36 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/28 18:55:43 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene)
 	n = vect_norm(vlen(n), n);
 	l = (t_list *)scene->light;
 	i = scene->a.bright;
+	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
 
 	while (l)
 	{
@@ -35,16 +36,16 @@ double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene)
 		if (!intersection_shadow(p, ld, scene))
 		{
 			nl = vect_scalar(n, ld);
-			if (nl > 0.0)
+			if (nl >= 0.0)
 			{
-				pixel->rgb = lightcolor(pixel->rgb, light->color, i);
 				i += light->bright * nl / (vlen(n) * vlen(ld));
+				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
 			}
-			if (i > 1.0)
-				return (1.0);
 		}
 		l = l->next;
 	}
+	if (i > 1.0)
+		return (1.0);
 	return (i);
 }
 double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene)
@@ -61,6 +62,7 @@ double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene
 	n = pl->vector;
 	l = (t_list *)scene->light;
 	i = scene->a.bright;
+	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
 
 	while (l)
 	{
@@ -69,16 +71,16 @@ double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene
 		if (!intersection_shadow(p, ld, scene))
 		{
 			nl = vect_scalar(n, ld);
-			if (nl > 0.0)
+			if (nl >= 0.0)
 			{
-				pixel->rgb = lightcolor(pixel->rgb, light->color, i);
 				i += light->bright * nl / (vlen(n) * vlen(ld));
+				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
 			}
-			if (i > 1.0)
-				return (1.0);
 		}
 		l = l->next;
 	}
+	if (i > 1.0)
+		return (1.0);
 	return (i);
 }
 
@@ -156,7 +158,7 @@ double	shadow_pl(t_xyz o, t_xyz v, t_list *plane)
 		}
 		if (vect_scalar(v, pl->vector))
 			t = -(vect_scalar(pl->vector, o) + d) / vect_scalar(v, pl->vector);
-		if (t > 0.0001 && t < 1.0)
+		if (t > 0.001 && t < 1.0)
 			return (t);
 		pl_list = pl_list->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 22:21:49 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/28 18:52:44 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,10 @@ int	apply_intensity(t_rgb color, double i)
 
 t_rgb	lightcolor(t_rgb color, t_rgb light, double i)
 {
+	// i = 0;
+	// color.red += color.red * light.red / 255;
+	// color.blue += color.blue * light.blue / 255;
+	// color.green += color.green * light.green / 255;
 	color.red += light.red * i;
 	color.green += light.green * i;
 	color.blue += light.blue * i;

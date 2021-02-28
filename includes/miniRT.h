@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 22:02:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/27 22:55:23 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct	s_scene {
 	t_list			*cy;
 	t_list			*tr;
 	t_list			*shadow_obj;
+	double			light_sum;
 }				t_scene;
 
 typedef enum	e_errors {
