@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/28 18:55:43 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/02/28 19:27:06 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene)
 	n = vect_norm(vlen(n), n);
 	l = (t_list *)scene->light;
 	i = scene->a.bright;
+	pixel->rgb.red = pixel->rgb.red * i;
+	pixel->rgb.green = pixel->rgb.green * i;
+	pixel->rgb.blue = pixel->rgb.blue * i;
 	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
 
 	while (l)
@@ -62,6 +65,9 @@ double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene
 	n = pl->vector;
 	l = (t_list *)scene->light;
 	i = scene->a.bright;
+	pixel->rgb.red = pixel->rgb.red * i;
+	pixel->rgb.green = pixel->rgb.green * i;
+	pixel->rgb.blue = pixel->rgb.blue * i;
 	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
 
 	while (l)
