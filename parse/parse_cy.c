@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/04 22:07:50 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	parse_cy(char *line, t_scene *scene)
 	char		**arr;
 
 	arr = ft_split(line, ' ');
+	if (arr[6])
+		ft_error_rt(MAP_INVALID, scene);
 	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!cy || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
@@ -29,8 +31,6 @@ void	parse_cy(char *line, t_scene *scene)
 	cy->diameter = ft_atof(arr[3], scene);
 	cy->height = ft_atof(arr[4], scene);
 	cy->color = atorgb(arr[5], scene);
-	if (arr[6])
-		ft_error_rt(MAP_INVALID, scene);
 	new = ft_lstnew(cy);
 	if (!new)
 		ft_error_rt(MALLOC_ERR, scene);

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:12:36 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/20 22:46:28 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/04 22:06:07 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	parse_sp(char *line, t_scene *scene)
 	char		**arr;
 
 	arr = ft_split(line, ' ');
+	if (arr[4])
+		ft_error_rt(MAP_INVALID, scene);
 	sp = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sp || !arr)
 		ft_error_rt(MALLOC_ERR, scene);
@@ -28,8 +30,6 @@ void	parse_sp(char *line, t_scene *scene)
 	sp->diameter = ft_atof(arr[2], scene);
 	sp->color = atorgb(arr[3], scene);
 	sp->r = 0;
-	if (arr[4])
-		ft_error_rt(MAP_INVALID, scene);
 	new = ft_lstnew(sp);
 	if (!new)
 		ft_error_rt(MALLOC_ERR, scene);
