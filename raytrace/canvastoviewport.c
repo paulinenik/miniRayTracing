@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/28 18:52:44 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/04 20:23:35 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_xyz	canvastoviewport(double x, double y, t_resolution res, t_camera *cam)
 	d.z = 1;
 	right = vector_prod((t_xyz){0.0, 1.0, 0.0}, cam->vector);
 	up = vector_prod(cam->vector, right);
-	new_d.x = right.x * d.x + right.y * d.y + right.z * d.z;
-	new_d.y = up.x * d.x + up.y * d.y + up.z * d.z;
-	new_d.z = cam->vector.x * d.x + cam->vector.y * d.y + cam->vector.z * d.z;
+	new_d.x = (right.x * d.x + right.y * d.y + right.z * d.z);
+	new_d.y = (up.x * d.x + up.y * d.y + up.z * d.z);
+	new_d.z = (cam->vector.x * d.x + cam->vector.y * d.y + cam->vector.z * d.z);
 	return(new_d);
 }
 

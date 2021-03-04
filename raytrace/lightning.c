@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/28 19:27:06 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/04 20:59:03 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene
 		if (!intersection_shadow(p, ld, scene))
 		{
 			nl = vect_scalar(n, ld);
-			if (nl >= 0.0)
+			if (nl < 0.0)
+				nl *= -1.0;
+			if (nl > 0.0)
 			{
 				i += light->bright * nl / (vlen(n) * vlen(ld));
 				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
