@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 22:55:23 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/09 18:35:05 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct	s_triangle {
 	t_xyz		p2;
 	t_xyz		p3;
 	t_rgb		color;
+	t_xyz		n;
 }				t_triangle;
 
 typedef struct	s_pixel {
@@ -191,6 +192,10 @@ double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene);
 double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
 double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
 double	shadow_pl(t_xyz o, t_xyz v, t_list *plane);
+double	shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
 double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene);
+double	lighting_tr(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle *tr, t_scene *scene);
+double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
+void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 
 #endif
