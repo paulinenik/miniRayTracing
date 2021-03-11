@@ -6,174 +6,47 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/11 20:38:46 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:06:51 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene)
+// void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene)
+double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene)
 {
-	t_xyz p;
-	t_xyz n;
-	t_xyz ld;
-	double nl;
+	t_xyz	p;
+	t_xyz	ld;
+	double	nl;
 	t_light	*light;
 	t_list	*l;
-	double i;
+	double	i;
 
 	p = vect_sum(o, vect_mult(pixel->t, v)); 
-	n = vect_direction(p, c);
-	n = vect_norm(vlen(n), n);
-	l = (t_list *)scene->light;
+	l = scene->light;
 	i = scene->a.bright;
-	pixel->rgb.red = pixel->rgb.red * i;
-	pixel->rgb.green = pixel->rgb.green * i;
-	pixel->rgb.blue = pixel->rgb.blue * i;
+	pixel->rgb  = ambient_intensity(pixel->rgb, i);
 	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
-
 	while (l)
 	{
 		light = l->content;
 		ld = vect_direction(light->point, p);
 		if (!intersection_shadow(p, ld, scene))
 		{
-			nl = vect_scalar(n, ld);
-			if (nl >= 0.0)
-			{
-				i += light->bright * nl / (vlen(n) * vlen(ld));
-				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
-			}
-		}
-		l = l->next;
-	}
-	if (i > 1.0)
-		return (1.0);
-	return (i);
-}
-double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene)
-{
-	t_xyz p;
-	t_xyz n;
-	t_xyz ld;
-	double nl;
-	t_light	*light;
-	t_list	*l;
-	double i;
-
-	p = vect_sum(o, vect_mult(pixel->t, v)); 
-	n = pl->vector;
-	l = (t_list *)scene->light;
-	i = scene->a.bright;
-	pixel->rgb.red = pixel->rgb.red * i;
-	pixel->rgb.green = pixel->rgb.green * i;
-	pixel->rgb.blue = pixel->rgb.blue * i;
-	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
-
-	while (l)
-	{
-		light = l->content;
-		ld = vect_direction(light->point, p);
-		if (!intersection_shadow(p, ld, scene))
-		{
-			nl = vect_scalar(n, ld);
-			if (nl < 0.0)
-				nl *= -1.0;
-			if (nl > 0.0)
-			{
-				i += light->bright * nl / (vlen(n) * vlen(ld));
-				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
-			}
-		}
-		l = l->next;
-	}
-	if (i > 1.0)
-		return (1.0);
-	return (i);
-}
-double	lighting_tr(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle *tr, t_scene *scene)
-{
-	t_xyz p;
-	t_xyz n;
-	t_xyz ld;
-	double nl;
-	t_light	*light;
-	t_list	*l;
-	double i;
-
-	p = vect_sum(o, vect_mult(pixel->t, v)); 
-	n = tr->n;
-	n = vect_norm(vlen(n), n);
-	l = (t_list *)scene->light;
-	i = scene->a.bright;
-	pixel->rgb.red = pixel->rgb.red * i;
-	pixel->rgb.green = pixel->rgb.green * i;
-	pixel->rgb.blue = pixel->rgb.blue * i;
-	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
-
-	while (l)
-	{
-		light = l->content;
-		ld = vect_direction(light->point, p);
-		if (!intersection_shadow(p, ld, scene))
-		{
-			nl = vect_scalar(n, ld);
-			if (nl < 0.0)
+			nl = vect_scalar(pixel->n, ld);
+			if (nl < 0.0 && pixel->id != SP)
 				nl *= -1.0;
 			if (nl >= 0.0)
 			{
-				i += light->bright * nl / (vlen(n) * vlen(ld));
-				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
+				i += light->bright * nl / (vlen(pixel->n) * vlen(ld));
+				pixel->rgb = lightcolor(pixel->rgb, light->color, \
+				light->bright * nl / (vlen(pixel->n) * vlen(ld)));
 			}
 		}
 		l = l->next;
 	}
 	if (i > 1.0)
-		return (1.0);
-	// printf("%f\n", i);
-	return (i);
-}
-
-double	lighting_sq(t_xyz o, t_xyz v, t_pixel *pixel, t_square *sq, t_scene *scene)
-{
-	t_xyz p;
-	t_xyz n;
-	t_xyz ld;
-	double nl;
-	t_light	*light;
-	t_list	*l;
-	double i;
-
-	p = vect_sum(o, vect_mult(pixel->t, v)); 
-	n = sq->vector;
-	n = vect_norm(vlen(n), n);
-	l = (t_list *)scene->light;
-	i = scene->a.bright;
-	pixel->rgb.red = pixel->rgb.red * i;
-	pixel->rgb.green = pixel->rgb.green * i;
-	pixel->rgb.blue = pixel->rgb.blue * i;
-	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
-
-	while (l)
-	{
-		light = l->content;
-		ld = vect_direction(light->point, p);
-		if (!intersection_shadow(p, ld, scene))
-		{
-			nl = vect_scalar(n, ld);
-			if (nl < 0.0)
-				nl *= -1.0;
-			if (nl >= 0.0)
-			{
-				i += light->bright * nl / (vlen(n) * vlen(ld));
-				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
-			}
-		}
-		l = l->next;
-	}
-	if (i > 1.0)
-		return (1.0);
-	// printf("%f\n", i);
+		i = 1.0;
 	return (i);
 }
 
@@ -321,14 +194,14 @@ double	shadow_sq(t_xyz o, t_xyz d, t_list *square)
 	{	
 		sq = sq_list->content;
 		halfsize = sq->sidesize / 4;
-		plane_d = -vect_scalar(sq->vector, sq->center);
-		if (fabs(vect_scalar(d, sq->vector)) < 0.0001)
+		plane_d = -vect_scalar(sq->vect, sq->center);
+		if (fabs(vect_scalar(d, sq->vect)) < 0.0001)
 		{
 			sq_list = sq_list->next;
 			continue;
 		}
-		if (vect_scalar(d, sq->vector))
-			t = -(vect_scalar(sq->vector, o) + plane_d) / vect_scalar(d, sq->vector);
+		if (vect_scalar(d, sq->vect))
+			t = -(vect_scalar(sq->vect, o) + plane_d) / vect_scalar(d, sq->vect);
 		if (t > 0.001 && t < 1.0)
 		{
 			p = vect_sum(o, vect_mult(t, d));

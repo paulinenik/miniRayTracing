@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/04 22:14:12 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 21:33:52 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,20 @@ t_rgb	lightcolor(t_rgb color, t_rgb light, double i)
 	color.red += light.red * i;
 	color.green += light.green * i;
 	color.blue += light.blue * i;
+	if (color.blue > 255)
+		color.blue = 255;
+	if (color.red > 255)
+		color.red = 255;
+	if (color.green > 255)
+		color.green = 255;
+	return (color);
+}
+
+t_rgb	ambient_intensity(t_rgb color, double i)
+{
+	color.red *= i;
+	color.green *= i;
+	color.blue *= i;
 	if (color.blue > 255)
 		color.blue = 255;
 	if (color.red > 255)

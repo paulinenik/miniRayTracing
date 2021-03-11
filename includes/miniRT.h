@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/11 19:32:53 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:04:21 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct	s_plane {
 
 typedef struct	s_square {
 	t_xyz		center;
-	t_xyz		vector;
+	t_xyz		vect;
 	double		sidesize;
 	t_rgb		color;
 }				t_square;
@@ -107,6 +107,9 @@ typedef struct	s_pixel {
 	double		t;
 	t_rgb		rgb;
 	int			color;
+	t_xyz		n;
+	int			id;
+	double		i;
 }				t_pixel;
 
 typedef struct	s_scene {
@@ -136,6 +139,14 @@ typedef enum	e_errors {
 	MAP_BRIGHT_ERR, //brightness out of range
 	COLOR_OUT_RANGE
 }				t_errors;
+
+typedef enum	e_id {
+	SP,
+	PL,
+	SQ,
+	TR,
+	CY
+}				t_id;
 
 void		ft_error_rt(int errno, t_scene *scene);
 void		ft_error(int errno);
@@ -169,11 +180,9 @@ t_xyz		vect_norm(double a, t_xyz dot);
 t_xyz		vect_direction(t_xyz end, t_xyz start);
 t_xyz		canvastoviewport(double x, double y, t_resolution res, t_camera *cam);
 double		intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
-// double		intersection_shadow(t_xyz o, t_xyz v, t_list *sphere);
 t_xyz		vect_sum(t_xyz end, t_xyz start);
 t_xyz		vect_mult(double a, t_xyz dot);
 double		vlen(t_xyz v);
-// double		lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a, t_list *sp);
 int			apply_intensity(t_rgb color, double i);
 t_rgb	lightcolor(t_rgb color, t_rgb light, double i);
 
@@ -188,18 +197,19 @@ t_xyz		vector_prod(t_xyz a, t_xyz b);
 void		rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 double		intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
 
-double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_xyz c, t_scene *scene);
+double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
+// void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
 double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
 double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
 double	shadow_pl(t_xyz o, t_xyz v, t_list *plane);
 double	shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
-double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene);
-double	lighting_tr(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle *tr, t_scene *scene);
 double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
 void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 void	rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 double	intersection_sq(t_xyz o, t_xyz d, t_square *sq);
-double	lighting_sq(t_xyz o, t_xyz v, t_pixel *pixel, t_square *sq, t_scene *scene);
 double	shadow_sq(t_xyz o, t_xyz d, t_list *square);
 
+
+t_rgb	ambient_intensity(t_rgb color, double i);
+t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:02:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/27 22:13:23 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:06:23 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	t_list		*sp_list;
 
 	sp_list = scene->sp;
-	i = 1.0;
-	while(sp_list)
-	{
+	while (sp_list)
+	{	
 		sp = sp_list->content;
 		if (!sp->r)
 			sp->r = pow(sp->diameter / 2, 2);
@@ -30,22 +29,24 @@ void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 		{
 			pixel->t = t;
 			pixel->rgb = sp->color;
-			i = lighting(o, v, pixel, sp->center, scene);
+			pixel->n = get_normal_sp(o, v, t, sp->center);
+			pixel->id = SP;
+			i = lighting(o, v, pixel, scene);
 		}
 		sp_list = sp_list->next;
 	}
-	pixel->color = apply_intensity(pixel->rgb, i);	
+	pixel->color = apply_intensity(pixel->rgb, i);
 }
 
 double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
 {
-	t_xyz oc;
+	t_xyz	oc;
 	double	k1;
 	double	k2;
 	double	k3;
 	double	discr;
-	double t1;
-	double t2;
+	double	t1;
+	double	t2;
 
 	oc = vect_direction(o, sp->center);
 	k1 = vect_scalar(v, v);
@@ -63,73 +64,13 @@ double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
 	return (0);
 }
 
-// double	lighting(t_xyz o, t_xyz v, t_list *l, double t, t_xyz c, double a, t_list *sp)
-// {
-// 	t_xyz p;
-// 	t_xyz n;
-// 	t_xyz ld;
-// 	double nl;
-// 	t_light	*light;
-// 	t_list	*l2;
-// 	double i;
+t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c)
+{
+	t_xyz p;
+	t_xyz n;
 
-// 	i = a;
-// 	v = vect_mult(t, v);
-// 	p = vect_sum(o, v);
-// 	n = vect_direction(p, c);
-// 	n = vect_norm(vlen(n), n);
-// 	l2 = l;
-
-// 	while (l2)
-// 	{
-// 		light = l2->content;
-// 		ld = vect_direction(light->point, p);
-// 		if (!intersection_shadow(p, ld, sp))
-// 		{
-// 			nl = vect_scalar(n, ld);
-// 			if (nl > 0.0)
-// 				i += light->bright * nl / (vlen(n) * vlen(ld));
-// 			if (i > 1.0)
-// 				return (1.0);
-// 		}
-// 		l2 = l2->next;
-// 	}
-// 	return (i);
-// }
-
-// double	intersection_shadow(t_xyz o, t_xyz v, t_list *sphere)
-// {
-// 	t_xyz oc;
-// 	double	k1;
-// 	double	k2;
-// 	double	k3;
-// 	double	discr;
-// 	double t1;
-// 	double t2;
-// 	t_sphere	*sp;
-// 	t_list		*sp_list;
-// 	sp_list = sphere;
-
-// 	while(sp_list)
-// 	{	
-// 		sp = sp_list->content;
-// 		oc = vect_direction(o, sp->center);
-// 		k1 = vect_scalar(v, v);
-// 		k2 = 2.0 * vect_scalar(oc, v);
-// 		k3 = vect_scalar(oc, oc) - sp->r;
-// 		discr = k2 * k2 - 4.0 * k1 * k3;
-// 		if (discr < 0)
-// 		{
-// 			sp_list = sp_list->next;
-// 			continue;
-// 		}
-// 		t1 = (-k2 + sqrt(discr)) / (2.0 * k1);
-// 		t2 = (-k2 - sqrt(discr)) / (2.0 * k1);
-// 		if (t1 > 0.001 && t1 < 1.0)
-// 			return (t1);
-// 		if (t2 > 0.001 && t2 < 1.0)
-// 			return (t2);
-// 		sp_list = sp_list->next;
-// 	}
-// 	return (0);
-// }
+	p = vect_sum(o, vect_mult(t, v));
+	n = vect_direction(p, c);
+	n = vect_norm(vlen(n), n);
+	return (n);
+}

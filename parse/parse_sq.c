@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:02:50 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/04 22:06:28 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 21:48:43 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parse_sq(char *line, t_scene *scene)
 	if (ft_strncmp(arr[0], "sq", ft_strlen(arr[0])))
 		ft_error_rt(MAP_INVALID, scene);
 	sq->center = ato_xyz(arr[1], scene);
-	sq->vector = ato_xyz(arr[2], scene);
+	sq->vect = ato_xyz(arr[2], scene);
 	sq->sidesize = ft_atof(arr[3], scene);
 	sq->color = atorgb(arr[4], scene);
 	new = ft_lstnew(sq);
