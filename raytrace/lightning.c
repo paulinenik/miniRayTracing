@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/09 20:58:31 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:12:09 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,50 @@ double	lighting_tr(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle *tr, t_scene *sc
 	// printf("%f\n", i);
 	return (i);
 }
+
+double	lighting_sq(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle sq, t_scene *scene)
+{
+	t_xyz p;
+	t_xyz n;
+	t_xyz ld;
+	double nl;
+	t_light	*light;
+	t_list	*l;
+	double i;
+
+	p = vect_sum(o, vect_mult(pixel->t, v)); 
+	n = sq->vect;
+	n = vect_norm(vlen(n), n);
+	l = (t_list *)scene->light;
+	i = scene->a.bright;
+	pixel->rgb.red = pixel->rgb.red * i;
+	pixel->rgb.green = pixel->rgb.green * i;
+	pixel->rgb.blue = pixel->rgb.blue * i;
+	pixel->rgb = lightcolor(pixel->rgb, scene->a.color, i);
+
+	while (l)
+	{
+		light = l->content;
+		ld = vect_direction(light->point, p);
+		if (!intersection_shadow(p, ld, scene))
+		{
+			nl = vect_scalar(n, ld);
+			if (nl < 0.0)
+				nl *= -1.0;
+			if (nl >= 0.0)
+			{
+				i += light->bright * nl / (vlen(n) * vlen(ld));
+				pixel->rgb = lightcolor(pixel->rgb, light->color, light->bright * nl / (vlen(n) * vlen(ld)));
+			}
+		}
+		l = l->next;
+	}
+	if (i > 1.0)
+		return (1.0);
+	// printf("%f\n", i);
+	return (i);
+}
+
 double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene)
 {	
 	int	i;
@@ -144,10 +188,10 @@ double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene)
 		return(1);
 	// else if (shadow_cy(o, v, scene->cy))
 	// 	return(1);
-	if (shadow_tr(o, v, scene->tr))
+	if (shadow_sq(o, v, scene->tr))
 		return(1);
-	// else if (shadow_sq(o, v, scene->sq))
-	// 	return(1);
+	square (shadow_sq(o, v, scene->sq))
+	 	return(1);
 	return(0);
 }
 
@@ -233,7 +277,6 @@ double	shadow_tr(t_xyz o, t_xyz d, t_list *triangle)
 		tr = tr_list->content;
 		ed1 = vect_direction(tr->p1, tr->p2);
 		ed2 = vect_direction(tr->p3, tr->p2);
-		tr->n = vector_prod(ed1, ed2);
 		det = vect_scalar(ed1, vector_prod(d, ed2));
 		if (fabs(det) < 0.000001)
 		{
@@ -261,3 +304,39 @@ double	shadow_tr(t_xyz o, t_xyz d, t_list *triangle)
 	}
 	return (0);
 }
+
+double	shadow_sq(t_xyz o, t_xyz d, t_list *square)
+{
+	double	halfsize;
+	double t;
+	double plane_d;
+	t_xyz	p;
+	t_xyz	v;
+	t_square	*sq;
+	t_list	*sq_list;
+	sq_list = square;
+
+	while(sq_list)
+	{	
+		sq = sq_list->content;
+		halfsize = sq->sidesize / 2;
+		plane_d = -vect_scalar(sq->vector, sq->center);
+		if (fabs(vect_scalar(v, sq->vector)) < 0.0000001)
+		{
+			sq_list = sq_list->next;
+			continue;
+		}
+		if (vect_scalar(v, sq->vector))
+			t = -(vect_scalar(sq->vector, o) + plane_d) / vect_scalar(v, sq->vector);
+		if (t < 0.0001 || t > INFINITY)
+		{
+			sq_list = sq_list->next;
+			continue;
+		}
+		p = vect_sum(o, vect_mult(t, d));
+		v = vect_direction(p, sq->center);
+		if (fabs(v.x) <= halfsize && fabs(v.y) <= halfsize && fabs(v.z) <= halfsize)
+			return (t);
+		sq_list = sq_list->next;
+	}
+	return (0);

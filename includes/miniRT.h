@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/09 18:35:05 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:04:10 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,8 @@ double	lighting_pl(t_xyz o, t_xyz v, t_pixel *pixel, t_plane *pl, t_scene *scene
 double	lighting_tr(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle *tr, t_scene *scene);
 double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
 void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+void	rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double	intersection_sq(t_xyz o, t_xyz d, t_square *sq);
+double	lighting_sq(t_xyz o, t_xyz v, t_pixel *pixel, t_triangle sq, t_scene *scene);
 
 #endif
