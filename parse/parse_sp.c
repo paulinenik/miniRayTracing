@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:12:36 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/04 22:06:07 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 20:24:40 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	parse_sp(char *line, t_scene *scene)
 	if (ft_strncmp(arr[0], "sp", ft_strlen(arr[0])))
 		ft_error_rt(MAP_INVALID, scene);
 	sp->center = ato_xyz(arr[1], scene);
-	sp->diameter = ft_atof(arr[2], scene);
 	sp->color = atorgb(arr[3], scene);
-	sp->r = 0;
+	sp->r = ft_atof(arr[2], scene) / 2;
 	new = ft_lstnew(sp);
 	if (!new)
 		ft_error_rt(MALLOC_ERR, scene);

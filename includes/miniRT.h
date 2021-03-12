@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/11 23:04:21 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 21:57:22 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ typedef struct	s_light {
 
 typedef struct	s_sphere {
 	t_xyz		center;
-	double		diameter;
 	double		r;
-	double		oc;
+	t_xyz		oc;
 	t_rgb		color;
 }				t_sphere;
 
@@ -96,9 +95,11 @@ typedef struct	s_cylinder {
 }				t_cylinder;
 
 typedef struct	s_triangle {
-	t_xyz		p1;
-	t_xyz		p2;
-	t_xyz		p3;
+	t_xyz		a;
+	t_xyz		b;
+	t_xyz		c;
+	t_xyz		ab;
+	t_xyz		bc;
 	t_rgb		color;
 	t_xyz		n;
 }				t_triangle;
@@ -125,6 +126,24 @@ typedef struct	s_scene {
 	t_list			*shadow_obj;
 	double			light_sum;
 }				t_scene;
+
+typedef struct	s_eq {
+	double	a;
+	double	b;
+	double	c;
+	double	discr;
+	double	x1;
+	double	x2;
+}				t_eq;
+
+typedef struct	s_barycentric {
+	t_xyz	tvec;
+	t_xyz	qvec;
+	double	det;
+	double	u;
+	double	v;
+}				t_barycentric;
+
 
 typedef enum	e_errors {
 	MAP_REQUIRED, //argc == 1
@@ -175,30 +194,29 @@ void		parse_sq(char *line, t_scene *scene);
 void		parse_tr(char *line, t_scene *scene);
 void		test(t_scene *scene);
 
-double		vect_scalar(t_xyz a, t_xyz b);
-t_xyz		vect_norm(double a, t_xyz dot);
+double		dot_product(t_xyz a, t_xyz b);
+t_xyz		normalize(t_xyz vect);
 t_xyz		vect_direction(t_xyz end, t_xyz start);
-t_xyz		canvastoviewport(double x, double y, t_resolution res, t_camera *cam);
+t_xyz		canvas_to_viewport(double x, double y, t_resolution res, t_camera *cam);
 double		intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
 t_xyz		vect_sum(t_xyz end, t_xyz start);
 t_xyz		vect_mult(double a, t_xyz dot);
-double		vlen(t_xyz v);
-int			apply_intensity(t_rgb color, double i);
-t_rgb	lightcolor(t_rgb color, t_rgb light, double i);
+double		vect_len(t_xyz v);
+int			rgb_to_int(t_rgb color, double i);
+t_rgb	add_color(t_rgb color, t_rgb light, double i);
 
 
 void		init_img(t_scene *scene);
 void		rt_image(t_scene *scene, t_data *img);
 int			trace_figures(t_scene *scene, t_xyz v);
 void		rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-t_xyz		vector_prod(t_xyz a, t_xyz b);
+t_xyz		cross_product(t_xyz a, t_xyz b);
 
 
 void		rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 double		intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
 
-double	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
-// void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
+void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
 double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
 double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
 double	shadow_pl(t_xyz o, t_xyz v, t_list *plane);
@@ -210,6 +228,7 @@ double	intersection_sq(t_xyz o, t_xyz d, t_square *sq);
 double	shadow_sq(t_xyz o, t_xyz d, t_list *square);
 
 
-t_rgb	ambient_intensity(t_rgb color, double i);
+t_rgb	apply_intensity(t_rgb color, double i);
 t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
+void	calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:10:10 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/04 22:08:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 20:49:23 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	parse_tr(char *line, t_scene *scene)
 		ft_error_rt(MALLOC_ERR, scene);
 	if (ft_strncmp(arr[0], "tr", ft_strlen(arr[0])))
 		ft_error_rt(MAP_INVALID, scene);
-	tr->p1 = ato_xyz(arr[1], scene);
-	tr->p2 = ato_xyz(arr[2], scene);
-	tr->p3 = ato_xyz(arr[3], scene);
+	tr->a = ato_xyz(arr[1], scene);
+	tr->b = ato_xyz(arr[2], scene);
+	tr->c = ato_xyz(arr[3], scene);
 	tr->color = atorgb(arr[4], scene);
 	new = ft_lstnew(tr);
 	if (!new)

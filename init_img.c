@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 20:26:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/11 23:00:05 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 21:47:49 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	rt_image(t_scene *scene, t_data *img)
 	{
 		while (x < scene->r.width)
 		{
-			viewport = canvastoviewport(x, y, scene->r, cam);
+			viewport = canvas_to_viewport(x, y, scene->r, cam);
 			color = trace_figures(scene, viewport);
 			my_mlx_pixel_put(img, x, y, color);
 			x++;

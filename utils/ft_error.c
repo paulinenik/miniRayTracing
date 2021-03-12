@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 20:02:43 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 22:02:42 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 21:58:45 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	ft_error_rt(int errno, t_scene *scene)
 	err_message[MAP_BRIGHT_ERR] = "The brightness of light is out of range.";
 	err_message[COLOR_OUT_RANGE] = "Invalid color values.";
 	scene_free(scene);
-	// if (scene)
-	// 	scene->a.bright = 1;
 	ft_putstr_fd("Error.\n", 1);
 	ft_putstr_fd(err_message[errno], 1);
 	ft_putstr_fd(" Please, try again.\n", 1);
