@@ -6,17 +6,23 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:48:48 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/17 16:50:33 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/12 23:11:16 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	ft_isspace(int c)
+static int	check_minus(char **str)
 {
-	if (c == 32)
-		return (1);
-	return (0);
+	int	sign;
+
+	sign = 1;
+	if (**str == '-')
+	{
+		sign = -1;
+		(*str)++;
+	}
+	return (sign);
 }
 
 int			rt_atoi(char *str, t_scene *scene)
@@ -26,25 +32,15 @@ int			rt_atoi(char *str, t_scene *scene)
 	char	*temp;
 
 	num = 0;
-	sign = 1;
 	temp = str;
-	if (*temp == '-')
-	{
-		sign = -1;
-		temp++;
-	}
-	if (!ft_isdigit(*temp))
-		ft_error_rt(MAP_INVALID, scene);
+	sign = check_minus(&temp);
 	while (ft_isdigit(*temp))
 	{
 		num = num * 10 + *temp - 48;
 		temp++;
 	}
 	if (*temp)
-	{
-		if (!ft_isspace(*temp))
-			ft_error_rt(MAP_INVALID, scene);
-	}
+		ft_error_rt(MAP_INVALID, scene);
 	return (num * sign);
 }
 
@@ -57,38 +53,23 @@ double		ft_atof(char *str, t_scene *scene)
 	char	*tmp;
 
 	dot = 0;
-	sign = 1;
 	temp = 0;
 	num = 0;
 	tmp = str;
-	if (*tmp == '-')
-	{
-		sign = -1;
-		tmp++;
-	}
-	// if (!ft_isdigit(*tmp))
-	// 	ft_error_rt(MAP_INVALID, scene);
+	sign = check_minus(&tmp);
 	while (ft_isdigit(*tmp))
 	{
 		num = num * 10 + *tmp - 48;
 		tmp++;
 		if (*tmp == '.')
 		{
-			dot = 1;
 			tmp++;
+			temp = ft_strlen(tmp);
 		}
-		if (dot)
-			temp++;
-		if (!ft_isdigit(*tmp))
-			if (!ft_isspace(*tmp) && *tmp)
-				ft_error_rt(MAP_INVALID, scene);
 	}
-	while (temp > 1)
-	{
-		num /= 10;
-		temp--;
-	}
-	return (num * sign);
+	if (*tmp)
+		ft_error_rt(MAP_INVALID, scene);
+	return (num * sign / pow(10, temp));
 }
 
 t_rgb		atorgb(char *str, t_scene *scene)
