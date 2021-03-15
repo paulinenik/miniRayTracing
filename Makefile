@@ -6,7 +6,7 @@ SRCS	= 	utils/atort.c utils/ft_double_list.c utils/ft_error.c \
 			parse/parse_cy.c parse/parse_sq.c parse/parse_tr.c \
 			utils/canvastoviewport.c init_img.c raytrace/sphere.c raytrace/plane.c \
 			raytrace/lightning.c raytrace/triangle.c raytrace/square.c raytrace/shadow_intersection.c \
-			utils/vector_math.c utils/color.c
+			utils/vector_math.c utils/color.c raytrace/cylinder.c
 
 TEST	= test.c
 

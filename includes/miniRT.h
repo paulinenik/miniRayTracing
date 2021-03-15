@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:57:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/15 20:12:19 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ typedef struct	s_square {
 typedef struct	s_cylinder {
 	t_xyz		point;
 	t_xyz		vector;
-	double		diameter;
+	double		r;
 	double		height;
 	t_rgb		color;
+	t_xyz		oc;
 }				t_cylinder;
 
 typedef struct	s_triangle {
@@ -231,4 +232,7 @@ double	shadow_sq(t_xyz o, t_xyz d, t_list *square);
 t_rgb	apply_intensity(t_rgb color, double i);
 t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
 void	calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
+
+void	rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double	intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy);
 #endif
