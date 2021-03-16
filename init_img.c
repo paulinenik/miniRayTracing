@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 20:26:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:47:49 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/15 20:12:54 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		trace_figures(t_scene *scene, t_xyz v)
 	rt_sphere(scene, cam->point, v, &pixel);
 	rt_plane(scene, cam->point, v, &pixel);
 	rt_triangle(scene, cam->point, v, &pixel);
-	// rt_cylinder(scene, v, &pixel);
+	rt_cylinder(scene, cam->point, v, &pixel);
 	rt_square(scene, cam->point, v, &pixel);
 	return(pixel.color);
 }

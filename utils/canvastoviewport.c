@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:52:50 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 20:52:19 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,5 @@ double	vect_len(t_xyz v)
 {
 	return (sqrt(dot_product(v, v)));
 }
+
+// double	closest_t(double t1, double t2)

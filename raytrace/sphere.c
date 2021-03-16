@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:02:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:56:55 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 21:22:56 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
 		return (0);
 	eq.x1 = (-eq.b + sqrt(eq.discr)) / (2.0 * eq.a);
 	eq.x2 = (-eq.b - sqrt(eq.discr)) / (2.0 * eq.a);
-	if (eq.x1 <= eq.x2 && eq.x1 > 0.0 && eq.x1 < INFINITY)
+	if (eq.x2 - eq.x1 >= 0.0 && eq.x1 > 0.0 && eq.x1 < INFINITY)
 		return (eq.x1);
 	if (eq.x2 > 0.0 && eq.x2 < INFINITY)
 		return (eq.x2);

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/15 20:10:48 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 20:14:34 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parse_cy(char *line, t_scene *scene)
 	if (ft_strncmp(arr[0], "cy", ft_strlen(arr[0])))
 		ft_error_rt(MAP_INVALID, scene);
 	cy->point = ato_xyz(arr[1], scene);
-	cy->vector = ato_xyz(arr[2], scene);
+	cy->vector = normalize(ato_xyz(arr[2], scene));
 	cy->r = ft_atof(arr[3], scene) / 2;
 	cy->height = ft_atof(arr[4], scene);
 	cy->color = atorgb(arr[5], scene);

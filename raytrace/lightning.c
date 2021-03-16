@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:57:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 21:07:39 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene)
 		return (1);
 	if (shadow_sq(o, v, scene->sq))
 		return (1);
-	// if (shadow_cy(o, v, scene->cy))
-		// return (1);
+	if (shadow_cy(o, v, scene->cy))
+		return (1);
 	return (0);
 }

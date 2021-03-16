@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 19:39:14 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:40:13 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 21:08:47 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,24 @@ double	shadow_sq(t_xyz o, t_xyz d, t_list *square)
 		if (t > 0.001 && t < 1.0)
 			return (t);
 		sq_list = sq_list->next;
+	}
+	return (0);
+}
+
+double	shadow_cy(t_xyz o, t_xyz d, t_list *cylinder)
+{
+	double		t;
+	t_cylinder	*cy;
+	t_list		*cy_list;
+
+	cy_list = cylinder;
+	while (cy_list)
+	{
+		cy = cy_list->content;
+		t = intersection_cy(o, d, cy);
+		if (t > 0.001 && t < 1.0)
+			return (t);
+		cy_list = cy_list->next;
 	}
 	return (0);
 }
