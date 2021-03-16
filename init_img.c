@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 20:26:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/15 20:12:54 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 23:29:02 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,40 @@
 
 void	init_img(t_scene *scene)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	t_data	data;
+	t_img	*img;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, scene->r.width, scene->r.height, "miniRT");
-	img.img = mlx_new_image(mlx, scene->r.width, scene->r.height);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	rt_image(scene, &img);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	img = &(data.img);
+	data.rt = scene;
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, scene->r.width, scene->r.height, "miniRT");
+	img->img = mlx_new_image(data.mlx, scene->r.width, scene->r.height);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+	mlx_hook(data.win, 17, 0L, close_window, &data);
+	rt_image(scene, img);
+	mlx_put_image_to_window(data.mlx, data.win, img->img, 0, 0);
+	mlx_loop(data.mlx);
 }
 
-void	rt_image(t_scene *scene, t_data *img)
+// void	init_img(t_scene *scene)
+// {
+// 	t_data	*data;
+// 	t_img	*img;
+
+// 	data = (t_data *)malloc(sizeof(t_data));
+// 	img = &(data->img);
+// 	data->rt = scene;
+// 	data->mlx = mlx_init();
+// 	data->win = mlx_new_window(data->mlx, scene->r.width, scene->r.height, "miniRT");
+// 	img->img = mlx_new_image(data->mlx, scene->r.width, scene->r.height);
+// 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+// 	mlx_hook(data->win, 17, 0L, close_window, data);
+// 	rt_image(scene, img);
+// 	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+// 	mlx_loop(data->mlx);
+// }
+
+void	rt_image(t_scene *scene, t_img *img)
 {
 	double x;
 	double y;

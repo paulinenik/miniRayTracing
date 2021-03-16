@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 20:52:19 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 22:47:59 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -55,5 +55,3 @@ double	vect_len(t_xyz v)
 {
 	return (sqrt(dot_product(v, v)));
 }
-
-// double	closest_t(double t1, double t2)

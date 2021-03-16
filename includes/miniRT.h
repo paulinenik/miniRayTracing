@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 21:09:20 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/16 22:45:04 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,25 @@ typedef enum	e_id {
 	CY
 }				t_id;
 
+typedef	enum
+{
+	a = 0,
+	s = 1,
+	d = 2,
+	f = 3,
+	h = 4,
+	g = 5,
+	z = 6,
+	x = 7,
+	c = 8,
+	v = 9,
+	w = 13,
+	plus = 24,
+	minus = 27,
+	arrow_left = 123,
+	arrow_right = 124,
+}	t_key;
+
 void		ft_error_rt(int errno, t_scene *scene);
 void		ft_error(int errno);
 void		split_free(char **arr);
@@ -209,7 +228,7 @@ t_rgb	add_color(t_rgb color, t_rgb light, double i);
 
 
 void		init_img(t_scene *scene);
-void		rt_image(t_scene *scene, t_data *img);
+void		rt_image(t_scene *scene, t_img *img);
 int			trace_figures(t_scene *scene, t_xyz v);
 void		rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 t_xyz		cross_product(t_xyz a, t_xyz b);
