@@ -6,15 +6,16 @@ SRCS	= 	utils/atort.c utils/ft_double_list.c utils/ft_error.c \
 			parse/parse_cy.c parse/parse_sq.c parse/parse_tr.c \
 			utils/canvastoviewport.c init_img.c raytrace/sphere.c raytrace/plane.c \
 			raytrace/lightning.c raytrace/triangle.c raytrace/square.c raytrace/shadow_intersection.c \
-			utils/vector_math.c utils/color.c raytrace/cylinder.c keyhooks/keyhooks.c
+			utils/vector_math.c utils/color.c raytrace/cylinder.c keyhooks/keyhooks.c \
+			keyhooks/actions.c
 
 TEST	= test.c
 
 LIBFT	= libft/libft.a
 
-MLX		= mlx/libmlx.a
+MLX		= mlx/libmlx.dylib
 
-MLX_FLAGS	= -lmlx -framework OpenGL -framework AppKit libmlx.a
+MLX_FLAGS	= -lz -framework OpenGL -framework AppKit libmlx.dylib
 
 HDRS	= includes
 
@@ -29,7 +30,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 $(NAME):	$(LIBFT) $(MLX) $(HDRS) $(SRCS)
 			@cp $(LIBFT) .
 			@cp $(MLX) .
-			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes libft.a libmlx.a  -o $(NAME)
+			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes -I./mlx libft.a libmlx.dylib  -o $(NAME)
 			@echo "\033[32m||miniRT is compiled sucsessfully||\033[0m"
 
 $(LIBFT):	
@@ -37,7 +38,7 @@ $(LIBFT):
 			@echo "\033[32m||libft is compiled sucsessfully||\033[0m"
 
 $(MLX):	
-			@$(MAKE) -C mlx
+			@$(MAKE) -C ./mlx
 			@echo "\033[32m\n||libmlx is compiled sucsessfully||\033[0m"
 		
 all:		$(LIBFT) $(MLX) $(SRCS)
@@ -49,7 +50,7 @@ clean:
 fclean:		clean
 			make fclean -C libft/
 			make clean -C mlx/
-			$(RM) $(NAME) libft.a libmlx.a
+			$(RM) $(NAME) libft.a libmlx.dylib
 
 re:			fclean all
 

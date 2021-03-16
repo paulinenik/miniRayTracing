@@ -6,16 +6,19 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 21:51:44 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 23:28:02 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 00:46:56 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		close_window(t_data *data)
+int		keyhooks(int keycode, t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	scene_free(data->rt);
-	exit(0);
+	if (keycode == 53 || keycode == 65307)
+		close_window(data);
+	else if (keycode == arrow_right || keycode == 65363)
+		to_next_cam(data);
+	else if (keycode == arrow_left || keycode == 65361)
+		to_prev_cam(data);
 	return (1);
 }

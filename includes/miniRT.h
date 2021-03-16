@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 22:45:04 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 01:22:49 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,4 +257,8 @@ void	rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 double	intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy);
 t_xyz	get_normal_cy(t_xyz o, t_xyz v, double t, t_cylinder *cy);
 double	shadow_cy(t_xyz o, t_xyz d, t_list *cylinder);
+int		keyhooks(int keycode, t_data *data);
+void	to_next_cam(t_data *data);
+void	to_prev_cam(t_data *data);
+void	check_resolution(void *mlx, t_scene *scene);
 #endif
