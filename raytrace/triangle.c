@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:02:27 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 22:11:51 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr)
 	tr->bc = vect_direction(tr->c, tr->b);
 	tr->n = cross_product(tr->ab, tr->bc);
 	coo.det = dot_product(tr->ab, cross_product(d, tr->bc));
-	if (fabs(coo.det) < 0.001)
+	if (fabs(coo.det) < 0.00001)
 		return (0);
 	coo.tvec = vect_direction(o, tr->b);
 	coo.u = dot_product(coo.tvec, cross_product(d, tr->bc)) / coo.det;

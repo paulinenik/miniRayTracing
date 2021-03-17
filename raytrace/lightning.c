@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 22:03:37 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene)
 	t_light	*light;
 	t_list	*l;
 
-	p = vect_sum(o, vect_mult(pixel->t * 0.99, v));
+	p = vect_sum(o, vect_mult(pixel->t * 0.9999, v));
 	l = scene->light;
 	pixel->i = scene->a.bright;
 	pixel->rgb = apply_intensity(pixel->rgb, pixel->i);

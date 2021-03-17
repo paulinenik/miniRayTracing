@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 22:00:42 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct	s_square {
 	t_xyz		vect;
 	double		size;
 	t_rgb		color;
+	t_xyz		n;
 }				t_square;
 
 typedef struct	s_cylinder {

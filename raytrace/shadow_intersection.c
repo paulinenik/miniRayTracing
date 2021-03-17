@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 19:39:14 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 22:11:51 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere)
 		{
 			eq.x1 = (-eq.b + sqrt(eq.discr)) / (2.0 * eq.a);
 			eq.x2 = (-eq.b - sqrt(eq.discr)) / (2.0 * eq.a);
-			if (eq.x1 > 0.001 && eq.x1 < 1.0)
+			if (eq.x1 > 0.00001 && eq.x1 < 0.9999)
 				return (eq.x1);
-			if (eq.x2 > 0.001 && eq.x2 < 1.0)
+			if (eq.x2 > 0.00001 && eq.x2 < 0.9999)
 				return (eq.x2);
 		}
 		sp_list = sp_list->next;
@@ -52,7 +52,7 @@ double	shadow_pl(t_xyz o, t_xyz d, t_list *plane)
 	{
 		pl = pl_list->content;
 		t = intersection_pl(o, d, pl);
-		if (t > 0.001 && t < 1.0)
+		if (t > 0.00001 && t < 0.9999)
 			return (t);
 		pl_list = pl_list->next;
 	}
@@ -70,7 +70,7 @@ double	shadow_tr(t_xyz o, t_xyz d, t_list *triangle)
 	{
 		tr = tr_list->content;
 		t = intersection_tr(o, d, tr);
-		if (t > 0.001 && t < 1.0)
+		if (t > 0.00001 && t < 0.9999)
 			return (t);
 		tr_list = tr_list->next;
 	}
@@ -88,7 +88,7 @@ double	shadow_sq(t_xyz o, t_xyz d, t_list *square)
 	{
 		sq = sq_list->content;
 		t = intersection_sq(o, d, sq);
-		if (t > 0.001 && t < 1.0)
+		if (t > 0.00001 && t < 0.9999)
 			return (t);
 		sq_list = sq_list->next;
 	}
@@ -106,7 +106,7 @@ double	shadow_cy(t_xyz o, t_xyz d, t_list *cylinder)
 	{
 		cy = cy_list->content;
 		t = intersection_cy(o, d, cy);
-		if (t > 0.001 && t < 1.0)
+		if (t > 0.00001 && t < 0.9999)
 			return (t);
 		cy_list = cy_list->next;
 	}
