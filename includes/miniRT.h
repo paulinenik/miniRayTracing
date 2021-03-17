@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 01:22:49 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct	s_plane {
 typedef struct	s_square {
 	t_xyz		center;
 	t_xyz		vect;
-	double		sidesize;
+	double		size;
 	t_rgb		color;
 }				t_square;
 

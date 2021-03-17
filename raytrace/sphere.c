@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:02:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 21:22:56 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c)
 	t_xyz p;
 	t_xyz n;
 
-	p = vect_sum(o, vect_mult(t, v));
+	p = vect_sum(o, vect_mult(t * 0.99, v));
 	n = vect_direction(p, c);
 	return (normalize(n));
 }

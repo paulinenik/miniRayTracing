@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 23:50:06 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 01:49:45 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,18 @@ void	to_next_cam(t_data *data)
 	t_scene	*scene;
 	t_img	*img;
 
-	ft_putstr_fd("Going to the next camera...\n", 1);
 	scene = data->rt;
-	scene->cam = scene->cam->next;
-	img = &(data->img);
-	mlx_clear_window(data->mlx, data->win);
-	rt_image(scene, img);
-	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+	if (scene->cam->next != NULL)
+	{
+		ft_putstr_fd("Going to the next camera...\n", 1);
+		scene->cam = scene->cam->next;
+		img = &(data->img);
+		mlx_clear_window(data->mlx, data->win);
+		rt_image(scene, img);
+		mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+	}
+	else
+		printf("There is only one camera declared in the file.\n");
 }
 
 void	to_prev_cam(t_data *data)
@@ -57,11 +62,16 @@ void	to_prev_cam(t_data *data)
 	t_scene	*scene;
 	t_img	*img;
 
-	ft_putstr_fd("Going to the previous camera...\n", 1);
 	scene = data->rt;
-	scene->cam = scene->cam->prev;
-	img = &(data->img);
-	mlx_clear_window(data->mlx, data->win);
-	rt_image(scene, img);
-	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+	if (scene->cam->prev != NULL)
+	{
+		ft_putstr_fd("Going to the previous camera...\n", 1);
+		scene->cam = scene->cam->prev;
+		img = &(data->img);
+		mlx_clear_window(data->mlx, data->win);
+		rt_image(scene, img);
+		mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+	}
+	else
+		printf("There is only one camera declared in the file.\n");
 }

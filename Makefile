@@ -31,15 +31,15 @@ $(NAME):	$(LIBFT) $(MLX) $(HDRS) $(SRCS)
 			@cp $(LIBFT) .
 			@cp $(MLX) .
 			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes -I./mlx libft.a libmlx.dylib  -o $(NAME)
-			@echo "\033[32m||miniRT is compiled sucsessfully||\033[0m"
+			@echo "\033[32mminiRT is compiled sucsessfully\033[0m"
 
 $(LIBFT):	
 			@$(MAKE) -C ./libft
-			@echo "\033[32m||libft is compiled sucsessfully||\033[0m"
+			@echo "\033[32mlibft is compiled sucsessfully\033[0m"
 
 $(MLX):	
 			@$(MAKE) -C ./mlx
-			@echo "\033[32m\n||libmlx is compiled sucsessfully||\033[0m"
+			@echo "\033[32m\nlibmlx is compiled sucsessfully\033[0m"
 		
 all:		$(LIBFT) $(MLX) $(SRCS)
 			$(NAME)

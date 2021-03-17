@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 21:07:39 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene)
 	t_light	*light;
 	t_list	*l;
 
-	p = vect_sum(o, vect_mult(pixel->t, v));
+	p = vect_sum(o, vect_mult(pixel->t * 0.99, v));
 	l = scene->light;
 	pixel->i = scene->a.bright;
 	pixel->rgb = apply_intensity(pixel->rgb, pixel->i);
@@ -42,7 +42,7 @@ void	calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light)
 	double i;
 
 	nl = dot_product(pixel->n, ld);
-	if (nl < 0.0 && pixel->id != SP)
+	if (nl < 0.0 && pixel->id != SP && pixel->id != CY)
 		nl *= -1.0;
 	if (nl >= 0.0)
 	{
