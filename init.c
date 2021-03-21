@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/21 18:48:10 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/21 19:08:21 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	check_ex(char *str)
+static int	check_ex(char *str)
 {
 	str += ft_strlen(str) - 3;
 	if (ft_strncmp(".rt", str, ft_strlen(str)))
@@ -25,11 +25,13 @@ static char	*get_name(char *path)
 	char *alternate;
 	char *name;
 
-	alternate = ft_strrchr(path, '/') + 1;
-	if (alternate)
-		name = ft_substr(alternate, 0, ft_strlen(alternate) - 3);
+	alternate = ft_strrchr(path, '/');
+	if (alternate != NULL)
+		name = ft_substr(alternate, 1, ft_strlen(alternate) - 3);
 	else
+	{
 		name = ft_substr(path, 0, ft_strlen(path) - 3);
+	}
 	if (name == NULL)
 		ft_error(MALLOC_ERR);
 	return (name);
