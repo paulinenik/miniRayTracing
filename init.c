@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/19 22:24:13 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/21 18:48:10 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,21 @@ int	check_ex(char *str)
 	if (ft_strncmp(".rt", str, ft_strlen(str)))
 		return(1);
 	return (0);
+}
+
+static char	*get_name(char *path)
+{
+	char *alternate;
+	char *name;
+
+	alternate = ft_strrchr(path, '/') + 1;
+	if (alternate)
+		name = ft_substr(alternate, 0, ft_strlen(alternate) - 3);
+	else
+		name = ft_substr(path, 0, ft_strlen(path) - 3);
+	if (name == NULL)
+		ft_error(MALLOC_ERR);
+	return (name);
 }
 
 int	main(int argc, char **argv)
@@ -37,7 +52,7 @@ int	main(int argc, char **argv)
 	else if (argc == 3)
 	{
 		save = 1;
-		name = ft_substr(argv[1], 0, ft_strlen(argv[1]) - 3);
+		name = get_name(argv[1]);
 	}
 	if (ft_strlen(argv[1]) < 4 || check_ex(argv[1]))
 		ft_error(MAP_CONF_ERR);
