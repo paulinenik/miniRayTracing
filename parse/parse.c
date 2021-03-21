@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:15:08 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/20 22:24:00 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/19 22:22:41 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_scene	*init_scene(void)
 	return (scene);
 }
 
-void	parse(int fd)
+void	parse(int fd, int save, char *name)
 {
 	t_scene	*scene;
 	char	*line;
@@ -80,9 +80,8 @@ void	parse(int fd)
 	if (gnl == -1)
 		ft_error_rt(READ_ERR, scene);
 	// test(scene);
-	init_img(scene);
-	// scene_free(scene);
-	// while (1)
-	// 	gnl = 1;
-	// return scene or go further
+	if (save)
+		create_bmp(name, scene);
+	else
+		init_img(scene);
 }

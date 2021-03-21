@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 22:00:42 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/20 22:21:18 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,8 @@ typedef enum	e_errors {
 	MAP_INVALID, //лишние символы карты
 	MAP_R_ERR, //resol out of range
 	MAP_BRIGHT_ERR, //brightness out of range
-	COLOR_OUT_RANGE
+	COLOR_OUT_RANGE,
+	BMP_CREATE_ER
 }				t_errors;
 
 typedef enum	e_id {
@@ -170,7 +171,7 @@ typedef enum	e_id {
 	CY
 }				t_id;
 
-typedef	enum
+typedef	enum	e_key
 {
 	a = 0,
 	s = 1,
@@ -186,8 +187,14 @@ typedef	enum
 	plus = 24,
 	minus = 27,
 	arrow_left = 123,
-	arrow_right = 124,
-}	t_key;
+	arrow_right = 124
+}				t_key;
+
+typedef enum	e_bmp
+{
+	header_size = 14, 
+	info_size = 40
+}				t_bmp;
 
 void		ft_error_rt(int errno, t_scene *scene);
 void		ft_error(int errno);
@@ -202,7 +209,7 @@ t_xyz		ato_xyz(char *str, t_scene *scene);
 t_dlist		*ft_dlstnew(void *content);
 void		ft_dlstadd(t_dlist **lst, t_dlist *new);
 
-void		parse(int fd);
+void		parse(int fd, int save, char *name);
 t_scene		*init_scene(void);
 void		get_scene(char *line, t_scene *scene);
 void		parse_resolution(char *line, t_scene *scene);
@@ -262,4 +269,9 @@ int		keyhooks(int keycode, t_data *data);
 void	to_next_cam(t_data *data);
 void	to_prev_cam(t_data *data);
 void	check_resolution(void *mlx, t_scene *scene);
+
+void	create_bmp(char *name, t_scene *scene);
+void	generate_bmp_header(int fd, t_scene *scene);
+void	generate_bmp_info(int fd, t_scene *scene);
+void	convert_to_bmp_data(int fd, t_scene *scene, t_img img);
 #endif

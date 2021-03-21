@@ -7,7 +7,7 @@ SRCS	= 	utils/atort.c utils/ft_double_list.c utils/ft_error.c \
 			utils/canvastoviewport.c init_img.c raytrace/sphere.c raytrace/plane.c \
 			raytrace/lightning.c raytrace/triangle.c raytrace/square.c raytrace/shadow_intersection.c \
 			utils/vector_math.c utils/color.c raytrace/cylinder.c keyhooks/keyhooks.c \
-			keyhooks/actions.c
+			keyhooks/actions.c create_bmp.c init.c
 
 TEST	= test.c
 
@@ -30,7 +30,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 $(NAME):	$(LIBFT) $(MLX) $(HDRS) $(SRCS)
 			@cp $(LIBFT) .
 			@cp $(MLX) .
-			$(CC) $(CFLAGS) $(SRCS) init.c $(MLX_FLAGS) -Iincludes -I./mlx libft.a libmlx.dylib  -o $(NAME)
+			$(CC) $(CFLAGS) $(SRCS) $(MLX_FLAGS) -Iincludes -I./mlx libft.a libmlx.dylib  -o $(NAME)
 			@echo "\033[32mminiRT is compiled sucsessfully\033[0m"
 
 $(LIBFT):	
