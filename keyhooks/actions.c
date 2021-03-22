@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 23:50:06 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/21 22:15:16 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	check_resolution(void *mlx, t_scene *scene)
 {
 	int		x;
-	int 	y;
+	int		y;
 	double	ratio;
 
 	ratio = scene->r.height / scene->r.width;
 	mlx_get_screen_size(mlx, &x, &y);
-	if(scene->r.width > x || scene->r.height > y)
+	if (scene->r.width > x || scene->r.height > y)
 	{
 		if (ratio - 1 <= 0.000001)
 			scene->r.width = y;
@@ -34,6 +34,7 @@ int		close_window(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	scene_free(data->rt);
+	printf("End of session.\nGood luck :)\n");
 	exit(0);
 	return (1);
 }

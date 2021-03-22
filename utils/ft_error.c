@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 20:02:43 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/12 21:58:45 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 21:11:18 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	scene_free(t_scene *scene)
 	ft_lstclear(&(scene->sq));
 	ft_lstclear(&(scene->cy));
 	ft_lstclear(&(scene->tr));
+	ft_dlist_clear(&(scene->cam));
 	free(scene);
 }
 

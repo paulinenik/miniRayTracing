@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:55:26 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 17:13:20 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 22:27:51 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	check_t(t_eq *eq)
 double		intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy)
 {
 	t_eq	eq;
-	
+
 	cy->c = vect_direction(cy->point, vect_mult(cy->height / 2, cy->vector));
 	cy->oc = vect_direction(o, cy->c);
 	eq.a = dot_product(v, v) - pow(dot_product(v, cy->vector), 2);
@@ -86,11 +86,8 @@ double		intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy)
 		if (check_point(eq.x1, v, cy))
 			return (eq.x1);
 	}
-	//if (eq.x2 > 0.0 && eq.x2 < INFINITY)
-	//{
 	if (check_point(eq.x2, v, cy))
 		return (eq.x2);
-	//}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:15:08 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/19 22:22:41 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 22:25:07 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	get_scene(char *line, t_scene *scene)
 t_scene	*init_scene(void)
 {
 	t_scene *scene;
+
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (!scene)
 		ft_error_rt(MALLOC_ERR, scene);
@@ -64,22 +65,18 @@ void	parse(int fd, int save, char *name)
 	scene = init_scene();
 	while ((gnl = get_next_line(fd, &line)))
 	{
-		if (!(ft_strncmp("", line, ft_strlen(line))))
-			continue;
-		else
-		{
+		if (ft_strncmp("", line, ft_strlen(line)))
 			get_scene(line, scene);
-			free(line);
-			line = NULL;
-		}
+		free(line);
+		line = NULL;
 	}
 	if (gnl == 0)
 		get_scene(line, scene);
 	free(line);
 	line = NULL;
+	close(fd);
 	if (gnl == -1)
 		ft_error_rt(READ_ERR, scene);
-	// test(scene);
 	if (save)
 		create_bmp(name, scene);
 	else

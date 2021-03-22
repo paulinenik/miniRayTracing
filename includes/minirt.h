@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/20 22:21:18 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 21:52:57 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct	s_pixel {
 	t_rgb		rgb;
 	int			color;
 	t_xyz		n;
+	int			ncy;
 	int			id;
 	double		i;
 }				t_pixel;
@@ -208,6 +209,7 @@ t_xyz		ato_xyz(char *str, t_scene *scene);
 
 t_dlist		*ft_dlstnew(void *content);
 void		ft_dlstadd(t_dlist **lst, t_dlist *new);
+void		ft_dlist_clear(t_dlist **lst);
 
 void		parse(int fd, int save, char *name);
 t_scene		*init_scene(void);

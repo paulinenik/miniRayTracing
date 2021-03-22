@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/21 19:08:21 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 22:31:58 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_name(char *path)
 
 	alternate = ft_strrchr(path, '/');
 	if (alternate != NULL)
-		name = ft_substr(alternate, 1, ft_strlen(alternate) - 3);
+		name = ft_substr(alternate, 1, ft_strlen(alternate) - 4);
 	else
 	{
 		name = ft_substr(path, 0, ft_strlen(path) - 3);
@@ -62,6 +62,5 @@ int	main(int argc, char **argv)
 	if ((fd < 0))
 		ft_error(OPEN_ERR);
 	parse(fd, save, name);
-	close(fd);
 	return (0);
 }
