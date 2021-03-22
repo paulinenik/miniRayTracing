@@ -6,13 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 15:39:22 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 22:15:23 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/19 20:34:05 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
+void			rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 {
 	double		t;
 	t_square	*sq;
@@ -48,17 +48,17 @@ static t_xyz	rotate(t_square *sq, double x, double y)
 	return (dot);
 }
 
-static void	make_triangle(t_square *sq, t_triangle *t1, t_triangle *t2)
+static void		make_triangle(t_square *sq, t_triangle *t1, t_triangle *t2)
 {
 	t_xyz	a;
 	t_xyz	b;
 	t_xyz	c;
 	t_xyz	d;
 
-	a = rotate(sq, sq->size/2, sq->size/2);
-	b = rotate(sq, -sq->size/2, sq->size/2);
-	c = rotate(sq, sq->size/2, -sq->size/2);
-	d = rotate(sq, -sq->size/2, -sq->size/2);
+	a = rotate(sq, sq->size / 2, sq->size / 2);
+	b = rotate(sq, -sq->size / 2, sq->size / 2);
+	c = rotate(sq, sq->size / 2, -sq->size / 2);
+	d = rotate(sq, -sq->size / 2, -sq->size / 2);
 	t1->a = a;
 	t1->b = b;
 	t1->c = c;
@@ -69,11 +69,11 @@ static void	make_triangle(t_square *sq, t_triangle *t1, t_triangle *t2)
 	t2->color = sq->color;
 }
 
-double	intersection_sq(t_xyz o, t_xyz d, t_square *sq)
+double			intersection_sq(t_xyz o, t_xyz d, t_square *sq)
 {
 	t_triangle	abc;
 	t_triangle	bcd;
-	double	t;
+	double		t;
 
 	make_triangle(sq, &abc, &bcd);
 	if ((t = intersection_tr(o, d, &abc)))
@@ -88,6 +88,6 @@ double	intersection_sq(t_xyz o, t_xyz d, t_square *sq)
 		bcd.ab = vect_direction(bcd.a, bcd.b);
 		bcd.bc = vect_direction(bcd.c, bcd.b);
 		sq->n = normalize(cross_product(bcd.ab, bcd.bc));
-	} 
+	}
 	return (intersection_tr(o, d, &bcd));
 }

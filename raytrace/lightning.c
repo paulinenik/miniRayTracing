@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:31:33 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 22:03:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/21 21:56:45 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light)
 	double i;
 
 	nl = dot_product(pixel->n, ld);
-	if (nl < 0.0 && pixel->id != SP && pixel->id != CY)
+	if (nl < 0.0 && pixel->id != SP)
 		nl *= -1.0;
 	if (nl >= 0.0)
 	{

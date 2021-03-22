@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 19:39:14 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 22:11:51 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:16:26 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ double	shadow_cy(t_xyz o, t_xyz d, t_list *cylinder)
 	{
 		cy = cy_list->content;
 		t = intersection_cy(o, d, cy);
-		if (t > 0.00001 && t < 0.9999)
+		if (t > 0.0000000001 && t < 0.9999)
 			return (t);
 		cy_list = cy_list->next;
 	}
