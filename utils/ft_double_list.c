@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:28:40 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:58:22 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 21:52:53 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,18 @@ void	ft_dlstadd(t_dlist **lst, t_dlist *new)
 	}
 	else
 		*lst = new;
+}
+
+void	ft_dlist_clear(t_dlist **lst)
+{
+	t_dlist	*temp;
+	
+	(*lst)->prev->next = NULL;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		free((*lst)->data);
+		free(*lst);
+		*lst = temp;
+	}
 }
