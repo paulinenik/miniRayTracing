@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 21:52:57 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 17:54:56 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ typedef struct	s_pixel {
 	t_rgb		rgb;
 	int			color;
 	t_xyz		n;
-	int			ncy;
 	int			id;
 	double		i;
 }				t_pixel;

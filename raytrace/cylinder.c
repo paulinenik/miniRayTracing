@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:55:26 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:27:51 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 17:58:37 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void		rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	t_cylinder	*cy;
 	t_list		*cy_list;
 
+	int			cy_id = 1;
+
 	cy_list = scene->cy;
 	while (cy_list)
 	{
 		cy = cy_list->content;
-		if ((t = intersection_cy(o, v, cy)) && t < pixel->t)
+		if ((t = intersection_cy(o, v, cy)) && (t < pixel->t))
 		{
 			pixel->t = t;
 			pixel->rgb = cy->color;
-			if (pixel->ncy == 0)
-			{
-				pixel->n = get_normal_cy(o, v, t, cy);
-				pixel->ncy = 1;
-			}
+			pixel->n = get_normal_cy(o, v, t, cy);
+			pixel->ncy = 1;
 			pixel->id = CY;
 			lighting(o, v, pixel, scene);
 		}
 		cy_list = cy_list->next;
+		cy_id++;
 	}
 	pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 }
@@ -86,7 +86,7 @@ double		intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy)
 		if (check_point(eq.x1, v, cy))
 			return (eq.x1);
 	}
-	if (check_point(eq.x2, v, cy))
+	if (eq.x2 > 0.0 && check_point(eq.x2, v, cy))
 		return (eq.x2);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 20:26:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:35:49 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 17:55:00 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		trace_figures(t_scene *scene, t_xyz v)
 	pixel.rgb.red = 0;
 	pixel.rgb.green = 0;
 	pixel.rgb.blue = 0;
-	pixel.ncy = 0;
 	rt_sphere(scene, cam->point, v, &pixel);
 	rt_plane(scene, cam->point, v, &pixel);
 	rt_triangle(scene, cam->point, v, &pixel);
