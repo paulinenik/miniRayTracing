@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:23:29 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 18:22:21 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ t_xyz	canvas_to_viewport(double x, double y, t_resolution res, t_camera *cam)
 	t_xyz	right;
 	t_xyz	new_d;
 
-	cam->vector = normalize(cam->vector);
 	fv = tan(cam->fov * M_PI / 360) * 2;
 	d.x = (x - (res.width / 2.0)) / res.width * fv;
 	d.y = ((res.height / 2.0) - y) / res.height * fv;
 	d.z = 1;
+	if (cam->vector.x == 0.0 && cam->vector.z == 0.0)
+		cam->vector.z = 0.1;
+	cam->vector = normalize(cam->vector);
 	right = cross_product((t_xyz){0.0, 1.0, 0.0}, cam->vector);
 	up = cross_product(cam->vector, right);
 	new_d.x = (right.x * d.x + right.y * d.y + right.z * d.z);

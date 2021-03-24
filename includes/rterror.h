@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:34:10 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 23:31:59 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 18:51:01 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 **	COLOR_OUT_RANGE	rgb value is out of range
 */
 
-typedef enum	errors {
+typedef enum	e_errors {
 	MAP_REQUIRED,
 	MAP_CONF_ERR,
 	OPEN_ERR,

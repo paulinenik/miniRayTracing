@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:55:26 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:58:37 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 18:32:53 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void		rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	t_cylinder	*cy;
 	t_list		*cy_list;
 
-	int			cy_id = 1;
-
 	cy_list = scene->cy;
 	while (cy_list)
 	{
@@ -29,12 +27,10 @@ void		rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 			pixel->t = t;
 			pixel->rgb = cy->color;
 			pixel->n = get_normal_cy(o, v, t, cy);
-			pixel->ncy = 1;
 			pixel->id = CY;
 			lighting(o, v, pixel, scene);
 		}
 		cy_list = cy_list->next;
-		cy_id++;
 	}
 	pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 }

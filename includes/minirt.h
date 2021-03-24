@@ -6,12 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:54:56 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 18:50:19 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef minirt_H
-# define minirt_H
+#ifndef MINIRT_H
+# define MINIRT_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -23,8 +23,7 @@
 # include <mlx.h>
 # include "libft.h"
 # include "my_rt.h"
-// # include "rterror.h"
-// # define malloc(x) NULL
+# define EPSYLON 0.0000000001
 
 typedef struct	s_dlist {
 	struct s_camera	*data;
@@ -147,18 +146,17 @@ typedef struct	s_barycentric {
 	double	v;
 }				t_barycentric;
 
-
 typedef enum	e_errors {
-	MAP_REQUIRED, //argc == 1
-	MAP_CONF_ERR, //not .rt file
-	OPEN_ERR, //open < 0
-	READ_ERR, //gnl -1
-	WRONG_ARG_ERR, // argv mistake
-	COUNT_ARG_ERR, //argc > 3
+	MAP_REQUIRED,
+	MAP_CONF_ERR,
+	OPEN_ERR,
+	READ_ERR,
+	WRONG_ARG_ERR,
+	COUNT_ARG_ERR,
 	MALLOC_ERR,
-	MAP_INVALID, //лишние символы карты
-	MAP_R_ERR, //resol out of range
-	MAP_BRIGHT_ERR, //brightness out of range
+	MAP_INVALID,
+	MAP_R_ERR,
+	MAP_BRIGHT_ERR,
 	COLOR_OUT_RANGE,
 	BMP_CREATE_ER
 }				t_errors;
@@ -192,87 +190,85 @@ typedef	enum	e_key
 
 typedef enum	e_bmp
 {
-	header_size = 14, 
+	header_size = 14,
 	info_size = 40
 }				t_bmp;
 
-void		ft_error_rt(int errno, t_scene *scene);
-void		ft_error(int errno);
-void		split_free(char **arr);
-void		scene_free(t_scene *scene);
+void			ft_error_rt(int errno, t_scene *scene);
+void			ft_error(int errno);
+void			split_free(char **arr);
+void			scene_free(t_scene *scene);
 
-int			rt_atoi(char *str, t_scene *scene);
-t_rgb		atorgb(char *str, t_scene *scene);
-double		ft_atof(char *str, t_scene *scene);
-t_xyz		ato_xyz(char *str, t_scene *scene);
+int				rt_atoi(char *str, t_scene *scene);
+t_rgb			atorgb(char *str, t_scene *scene);
+double			ft_atof(char *str, t_scene *scene);
+t_xyz			ato_xyz(char *str, t_scene *scene);
 
-t_dlist		*ft_dlstnew(void *content);
-void		ft_dlstadd(t_dlist **lst, t_dlist *new);
-void		ft_dlist_clear(t_dlist **lst);
+t_dlist			*ft_dlstnew(void *content);
+void			ft_dlstadd(t_dlist **lst, t_dlist *new);
+void			ft_dlist_clear(t_dlist **lst);
 
-void		parse(int fd, int save, char *name);
-t_scene		*init_scene(void);
-void		get_scene(char *line, t_scene *scene);
-void		parse_resolution(char *line, t_scene *scene);
-void		parse_ambient(char *line, t_scene *scene);
-void		parse_cam(char *line, t_scene *scene);
-void		parse_light(char *str, t_scene *scene);
-void		parse_sp(char *line, t_scene *scene);
-void		parse_pl(char *line, t_scene *scene);
-void		parse_cy(char *line, t_scene *scene);
-void		parse_sq(char *line, t_scene *scene);
-void		parse_tr(char *line, t_scene *scene);
-void		test(t_scene *scene);
+void			parse(int fd, int save, char *name);
+t_scene			*init_scene(void);
+void			get_scene(char *line, t_scene *scene);
+void			parse_resolution(char *line, t_scene *scene);
+void			parse_ambient(char *line, t_scene *scene);
+void			parse_cam(char *line, t_scene *scene);
+void			parse_light(char *str, t_scene *scene);
+void			parse_sp(char *line, t_scene *scene);
+void			parse_pl(char *line, t_scene *scene);
+void			parse_cy(char *line, t_scene *scene);
+void			parse_sq(char *line, t_scene *scene);
+void			parse_tr(char *line, t_scene *scene);
+void			test(t_scene *scene);
 
-double		dot_product(t_xyz a, t_xyz b);
-t_xyz		normalize(t_xyz vect);
-t_xyz		vect_direction(t_xyz end, t_xyz start);
-t_xyz		canvas_to_viewport(double x, double y, t_resolution res, t_camera *cam);
-double		intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
-t_xyz		vect_sum(t_xyz end, t_xyz start);
-t_xyz		vect_mult(double a, t_xyz dot);
-double		vect_len(t_xyz v);
-int			rgb_to_int(t_rgb color, double i);
-t_rgb	add_color(t_rgb color, t_rgb light, double i);
+double			dot_product(t_xyz a, t_xyz b);
+t_xyz			normalize(t_xyz vect);
+t_xyz			vect_direction(t_xyz end, t_xyz start);
+t_xyz			canvas_to_viewport(double x, double y, t_resolution res, \
+t_camera *cam);
+double			intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
+t_xyz			vect_sum(t_xyz end, t_xyz start);
+t_xyz			vect_mult(double a, t_xyz dot);
+double			vect_len(t_xyz v);
+int				rgb_to_int(t_rgb color, double i);
+t_rgb			add_color(t_rgb color, t_rgb light, double i);
 
+void			init_img(t_scene *scene);
+void			rt_image(t_scene *scene, t_img *img);
+int				trace_figures(t_scene *scene, t_xyz v);
+void			rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+t_xyz			cross_product(t_xyz a, t_xyz b);
 
-void		init_img(t_scene *scene);
-void		rt_image(t_scene *scene, t_img *img);
-int			trace_figures(t_scene *scene, t_xyz v);
-void		rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-t_xyz		cross_product(t_xyz a, t_xyz b);
+void			rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double			intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
 
+void			lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
+double			intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
+double			shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
+double			shadow_pl(t_xyz o, t_xyz v, t_list *plane);
+double			shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
+double			intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
+void			rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+void			rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double			intersection_sq(t_xyz o, t_xyz d, t_square *sq);
+double			shadow_sq(t_xyz o, t_xyz d, t_list *square);
 
-void		rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-double		intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
+t_rgb			apply_intensity(t_rgb color, double i);
+t_xyz			get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
+void			calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
 
-void	lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
-double	intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
-double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
-double	shadow_pl(t_xyz o, t_xyz v, t_list *plane);
-double	shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
-double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
-void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-void	rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-double	intersection_sq(t_xyz o, t_xyz d, t_square *sq);
-double	shadow_sq(t_xyz o, t_xyz d, t_list *square);
+void			rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+double			intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy);
+t_xyz			get_normal_cy(t_xyz o, t_xyz v, double t, t_cylinder *cy);
+double			shadow_cy(t_xyz o, t_xyz d, t_list *cylinder);
+int				keyhooks(int keycode, t_data *data);
+void			to_next_cam(t_data *data);
+void			to_prev_cam(t_data *data);
+void			check_resolution(void *mlx, t_scene *scene);
 
-
-t_rgb	apply_intensity(t_rgb color, double i);
-t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
-void	calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
-
-void	rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-double	intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy);
-t_xyz	get_normal_cy(t_xyz o, t_xyz v, double t, t_cylinder *cy);
-double	shadow_cy(t_xyz o, t_xyz d, t_list *cylinder);
-int		keyhooks(int keycode, t_data *data);
-void	to_next_cam(t_data *data);
-void	to_prev_cam(t_data *data);
-void	check_resolution(void *mlx, t_scene *scene);
-
-void	create_bmp(char *name, t_scene *scene);
-void	generate_bmp_header(int fd, t_scene *scene);
-void	generate_bmp_info(int fd, t_scene *scene);
-void	convert_to_bmp_data(int fd, t_scene *scene, t_img img);
+void			create_bmp(char *name, t_scene *scene);
+void			generate_bmp_header(int fd, t_scene *scene);
+void			generate_bmp_info(int fd, t_scene *scene);
+void			convert_to_bmp_data(int fd, t_scene *scene, t_img img);
 #endif

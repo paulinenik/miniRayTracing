@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:05:13 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 22:11:51 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 18:24:44 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double	intersection_pl(t_xyz o, t_xyz v, t_plane *pl)
 
 	t = 0.0;
 	d = -dot_product(pl->vector, pl->point);
-	if (fabs(dot_product(v, pl->vector)) < 0.00001)
+	if (fabs(dot_product(v, pl->vector)) < EPSYLON)
 		return (0);
 	if (dot_product(v, pl->vector))
 		t = -(dot_product(pl->vector, o) + d) / dot_product(v, pl->vector);

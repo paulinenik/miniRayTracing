@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:31:58 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 22:54:40 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_ex(char *str)
 {
 	str += ft_strlen(str) - 3;
 	if (ft_strncmp(".rt", str, ft_strlen(str)))
-		return(1);
+		return (1);
 	return (0);
 }
 
@@ -37,7 +37,7 @@ static char	*get_name(char *path)
 	return (name);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int		fd;
 	int		save;
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 		ft_error(MAP_REQUIRED);
 	if (argc > 3)
 		ft_error(COUNT_ARG_ERR);
-	if	(argc == 3 && ft_strncmp(argv[2], "--save", 6))
+	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
 		ft_error(WRONG_ARG_ERR);
 	else if (argc == 3)
 	{

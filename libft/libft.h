@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:30:20 by rgordon           #+#    #+#             */
-/*   Updated: 2021/02/10 20:27:12 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/22 20:19:49 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-# define BUFFER_SIZE	10
+# define BUFFER_SIZE	1000
 
 typedef struct		s_list
 {
