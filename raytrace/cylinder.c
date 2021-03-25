@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:55:26 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:32:53 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:11:42 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 void		rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 {
@@ -27,7 +28,6 @@ void		rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 			pixel->t = t;
 			pixel->rgb = cy->color;
 			pixel->n = get_normal_cy(o, v, t, cy);
-			pixel->id = CY;
 			lighting(o, v, pixel, scene);
 		}
 		cy_list = cy_list->next;

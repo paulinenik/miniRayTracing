@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 20:26:41 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:55:00 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:23:09 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "mlx.h"
 
 void	init_img(t_scene *scene)
 {

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 19:55:09 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:50:19 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:30:41 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,54 @@
 # include <math.h>
 # include <mlx.h>
 # include "libft.h"
-# include "my_rt.h"
 # define EPSYLON 0.0000000001
+
+/*
+**	map_required 	argc == 1
+**	map_conf_err 	not .rt file
+**	open_err 		open < 0
+**	read_err 		gnl error
+**	wrong_arg_err 	argv mistake
+**	count_arg_err 	argc > 3
+**	malloc_err		malloc error
+**	map_invalid 	extra symbols in .rt file
+**	map_r_err	 	resolution out of range
+**	map_bright_err 	brightness out of range
+**	color_out_range	rgb value is out of range
+**	bmp_create_err	error while creating a bmp
+*/
+
+typedef enum	e_errors {
+	map_required,
+	map_conf_err,
+	open_err,
+	read_err,
+	wrong_arg_err,
+	count_arg_err,
+	malloc_err,
+	map_invalid,
+	map_r_err,
+	map_bright_err,
+	color_out_range,
+	bmp_create_err
+}				t_errors;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
+typedef struct	s_data
+{
+	t_img	img;
+	void	*mlx;
+	void	*win;
+	void	*rt;
+	int		bmp;
+}				t_data;
 
 typedef struct	s_dlist {
 	struct s_camera	*data;
@@ -111,7 +157,6 @@ typedef struct	s_pixel {
 	t_rgb		rgb;
 	int			color;
 	t_xyz		n;
-	int			id;
 	double		i;
 }				t_pixel;
 
@@ -146,48 +191,6 @@ typedef struct	s_barycentric {
 	double	v;
 }				t_barycentric;
 
-typedef enum	e_errors {
-	MAP_REQUIRED,
-	MAP_CONF_ERR,
-	OPEN_ERR,
-	READ_ERR,
-	WRONG_ARG_ERR,
-	COUNT_ARG_ERR,
-	MALLOC_ERR,
-	MAP_INVALID,
-	MAP_R_ERR,
-	MAP_BRIGHT_ERR,
-	COLOR_OUT_RANGE,
-	BMP_CREATE_ER
-}				t_errors;
-
-typedef enum	e_id {
-	SP,
-	PL,
-	SQ,
-	TR,
-	CY
-}				t_id;
-
-typedef	enum	e_key
-{
-	a = 0,
-	s = 1,
-	d = 2,
-	f = 3,
-	h = 4,
-	g = 5,
-	z = 6,
-	x = 7,
-	c = 8,
-	v = 9,
-	w = 13,
-	plus = 24,
-	minus = 27,
-	arrow_left = 123,
-	arrow_right = 124
-}				t_key;
-
 typedef enum	e_bmp
 {
 	header_size = 14,
@@ -220,55 +223,58 @@ void			parse_pl(char *line, t_scene *scene);
 void			parse_cy(char *line, t_scene *scene);
 void			parse_sq(char *line, t_scene *scene);
 void			parse_tr(char *line, t_scene *scene);
-void			test(t_scene *scene);
 
 double			dot_product(t_xyz a, t_xyz b);
+t_xyz			cross_product(t_xyz a, t_xyz b);
 t_xyz			normalize(t_xyz vect);
 t_xyz			vect_direction(t_xyz end, t_xyz start);
-t_xyz			canvas_to_viewport(double x, double y, t_resolution res, \
-t_camera *cam);
-double			intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
 t_xyz			vect_sum(t_xyz end, t_xyz start);
 t_xyz			vect_mult(double a, t_xyz dot);
 double			vect_len(t_xyz v);
+
 int				rgb_to_int(t_rgb color, double i);
 t_rgb			add_color(t_rgb color, t_rgb light, double i);
+int				colortoint(int t, int r, int g, int b);
 
+void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void			init_img(t_scene *scene);
+t_xyz			canvas_to_viewport(double x, double y, t_resolution res, \
+t_camera *cam);
 void			rt_image(t_scene *scene, t_img *img);
 int				trace_figures(t_scene *scene, t_xyz v);
 void			rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-t_xyz			cross_product(t_xyz a, t_xyz b);
-
 void			rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-double			intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
-
-void			lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
-double			intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
-double			shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
-double			shadow_pl(t_xyz o, t_xyz v, t_list *plane);
-double			shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
-double			intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
 void			rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
 void			rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
-double			intersection_sq(t_xyz o, t_xyz d, t_square *sq);
-double			shadow_sq(t_xyz o, t_xyz d, t_list *square);
-
-t_rgb			apply_intensity(t_rgb color, double i);
-t_xyz			get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
-void			calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
-
 void			rt_cylinder(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel);
+
+double			intersection_sp(t_xyz o, t_xyz v, t_sphere *sp);
+double			intersection_pl(t_xyz o, t_xyz v, t_plane *pl);
+double			intersection_tr(t_xyz o, t_xyz d, t_triangle *tr);
+double			intersection_sq(t_xyz o, t_xyz d, t_square *sq);
 double			intersection_cy(t_xyz o, t_xyz v, t_cylinder *cy);
-t_xyz			get_normal_cy(t_xyz o, t_xyz v, double t, t_cylinder *cy);
+
+void			lighting(t_xyz o, t_xyz v, t_pixel *pixel, t_scene *scene);
+void			calculate_intensity(t_pixel *pixel, t_xyz ld, t_light *light);
+t_rgb			apply_intensity(t_rgb color, double i);
+double			intersection_shadow(t_xyz o, t_xyz v, t_scene *scene);
+double			shadow_sp(t_xyz o, t_xyz v, t_list *sphere);
+t_xyz			get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c);
+double			shadow_pl(t_xyz o, t_xyz v, t_list *plane);
+double			shadow_tr(t_xyz o, t_xyz v, t_list *triangle);
+double			shadow_sq(t_xyz o, t_xyz d, t_list *square);
 double			shadow_cy(t_xyz o, t_xyz d, t_list *cylinder);
+t_xyz			get_normal_cy(t_xyz o, t_xyz v, double t, t_cylinder *cy);
+
 int				keyhooks(int keycode, t_data *data);
+void			check_resolution(void *mlx, t_scene *scene);
+int				close_window(t_data *data);
 void			to_next_cam(t_data *data);
 void			to_prev_cam(t_data *data);
-void			check_resolution(void *mlx, t_scene *scene);
 
 void			create_bmp(char *name, t_scene *scene);
 void			generate_bmp_header(int fd, t_scene *scene);
 void			generate_bmp_info(int fd, t_scene *scene);
 void			convert_to_bmp_data(int fd, t_scene *scene, t_img img);
+
 #endif

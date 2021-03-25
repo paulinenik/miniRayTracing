@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 15:39:22 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:19:15 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/24 23:23:03 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void			rt_square(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	while (sq_list)
 	{
 		sq = sq_list->content;
-		if ((t = intersection_sq(o, v, sq)) && t < pixel->t)
+		if ((t = intersection_sq(o, v, sq)) && (t < pixel->t))
 		{
 			pixel->t = t;
 			pixel->rgb = sq->color;
 			pixel->n = sq->n;
-			pixel->id = SQ;
 			lighting(o, v, pixel, scene);
 			pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 		}

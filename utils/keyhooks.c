@@ -6,19 +6,23 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 21:51:44 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:56:29 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:36:39 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "libft.h"
+#include "mlx.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int		keyhooks(int keycode, t_data *data)
 {
 	if (keycode == 53 || keycode == 65307)
 		close_window(data);
-	else if (keycode == arrow_right || keycode == 65363)
+	else if (keycode == 124 || keycode == 65363)
 		to_next_cam(data);
-	else if (keycode == arrow_left || keycode == 65361)
+	else if (keycode == 123 || keycode == 65361)
 		to_prev_cam(data);
 	return (1);
 }
@@ -46,7 +50,7 @@ int		close_window(t_data *data)
 	mlx_destroy_window(data->mlx, data->win);
 	scene_free(data->rt);
 	printf("End of session.\nGood luck :)\n");
-	exit(0);
+	exit(EXIT_SUCCESS);
 	return (1);
 }
 

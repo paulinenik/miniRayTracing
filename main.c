@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:19:56 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:54:40 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 18:59:42 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_name(char *path)
 		name = ft_substr(path, 0, ft_strlen(path) - 3);
 	}
 	if (name == NULL)
-		ft_error(MALLOC_ERR);
+		ft_error(malloc_err);
 	return (name);
 }
 
@@ -46,21 +46,21 @@ int			main(int argc, char **argv)
 	save = 0;
 	name = NULL;
 	if (argc == 1)
-		ft_error(MAP_REQUIRED);
+		ft_error(map_required);
 	if (argc > 3)
-		ft_error(COUNT_ARG_ERR);
+		ft_error(count_arg_err);
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
-		ft_error(WRONG_ARG_ERR);
+		ft_error(wrong_arg_err);
 	else if (argc == 3)
 	{
 		save = 1;
 		name = get_name(argv[1]);
 	}
 	if (ft_strlen(argv[1]) < 4 || check_ex(argv[1]))
-		ft_error(MAP_CONF_ERR);
+		ft_error(map_conf_err);
 	fd = open(argv[1], O_RDWR);
 	if ((fd < 0))
-		ft_error(OPEN_ERR);
+		ft_error(open_err);
 	parse(fd, save, name);
 	return (0);
 }

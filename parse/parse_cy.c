@@ -6,11 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/16 20:14:34 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:08:29 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "libft.h"
+#include <stdlib.h>
 
 void	parse_cy(char *line, t_scene *scene)
 {
@@ -20,12 +22,12 @@ void	parse_cy(char *line, t_scene *scene)
 
 	arr = ft_split(line, ' ');
 	if (arr[6])
-		ft_error_rt(MAP_INVALID, scene);
+		ft_error_rt(map_invalid, scene);
 	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!cy || !arr)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	if (ft_strncmp(arr[0], "cy", ft_strlen(arr[0])))
-		ft_error_rt(MAP_INVALID, scene);
+		ft_error_rt(map_invalid, scene);
 	cy->point = ato_xyz(arr[1], scene);
 	cy->vector = normalize(ato_xyz(arr[2], scene));
 	cy->r = ft_atof(arr[3], scene) / 2;
@@ -33,7 +35,7 @@ void	parse_cy(char *line, t_scene *scene)
 	cy->color = atorgb(arr[5], scene);
 	new = ft_lstnew(cy);
 	if (!new)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	ft_lstadd_back(&scene->cy, new);
 	split_free(arr);
 }

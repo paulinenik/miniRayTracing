@@ -11,7 +11,7 @@ SRCS	=	ft_strlen.c ft_strdup.c ft_strncmp.c \
 			 ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 			 get_next_line.c get_next_line_utils.c
 
-HDRS	= ../includes/libft.h
+HDRS	= ./libft.h
 
 OBJS	= ${SRCS:c=o}
 

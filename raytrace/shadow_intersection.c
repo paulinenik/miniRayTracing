@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 19:39:14 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:28:42 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:13:27 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 double	shadow_sp(t_xyz o, t_xyz v, t_list *sphere)
 {

@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:05:13 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:24:44 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:13:00 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 void	rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 {
@@ -22,12 +23,11 @@ void	rt_plane(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	while (pl_list)
 	{
 		pl = pl_list->content;
-		if ((t = intersection_pl(o, v, pl)) && t < pixel->t)
+		if ((t = intersection_pl(o, v, pl)) && (t < pixel->t))
 		{
 			pixel->t = t;
 			pixel->rgb = pl->color;
 			pixel->n = pl->vector;
-			pixel->id = PL;
 			lighting(o, v, pixel, scene);
 			pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 		}

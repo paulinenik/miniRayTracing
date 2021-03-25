@@ -6,13 +6,14 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 18:02:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/17 18:50:27 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:37:03 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
-void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
+void		rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 {
 	double		t;
 	t_sphere	*sp;
@@ -27,7 +28,6 @@ void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 			pixel->t = t;
 			pixel->rgb = sp->color;
 			pixel->n = get_normal_sp(o, v, t, sp->center);
-			pixel->id = SP;
 			lighting(o, v, pixel, scene);
 		}
 		sp_list = sp_list->next;
@@ -35,7 +35,22 @@ void	rt_sphere(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 }
 
-double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
+static void	check_t(t_eq *eq)
+{
+	double tmp;
+
+	if (eq->x1 > 0.0 && eq->x2 > 0.0)
+	{
+		if (eq->x1 > eq->x2)
+		{
+			tmp = eq->x1;
+			eq->x1 = eq->x2;
+			eq->x2 = tmp;
+		}
+	}
+}
+
+double		intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
 {
 	t_eq	eq;
 
@@ -48,19 +63,20 @@ double	intersection_sp(t_xyz o, t_xyz v, t_sphere *sp)
 		return (0);
 	eq.x1 = (-eq.b + sqrt(eq.discr)) / (2.0 * eq.a);
 	eq.x2 = (-eq.b - sqrt(eq.discr)) / (2.0 * eq.a);
-	if (eq.x2 - eq.x1 >= 0.0 && eq.x1 > 0.0 && eq.x1 < INFINITY)
+	check_t(&eq);
+	if (eq.x1 > 0.0 && eq.x1 < INFINITY)
 		return (eq.x1);
 	if (eq.x2 > 0.0 && eq.x2 < INFINITY)
 		return (eq.x2);
 	return (0);
 }
 
-t_xyz	get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c)
+t_xyz		get_normal_sp(t_xyz o, t_xyz v, double t, t_xyz c)
 {
 	t_xyz p;
 	t_xyz n;
 
-	p = vect_sum(o, vect_mult(t * 0.99, v));
+	p = vect_sum(o, vect_mult(t * 0.99999, v));
 	n = vect_direction(p, c);
 	return (normalize(n));
 }

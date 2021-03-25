@@ -6,13 +6,17 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 22:57:47 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 23:27:53 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:18:00 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
 #include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 void	write_int_to_bmp(int index, int info, char **header)
 {
@@ -32,7 +36,7 @@ void	generate_bmp_header(int fd, t_scene *scene)
 	header = (char *)malloc((int)header_size * sizeof(char));
 	size = header_size + info_size + (scene->r.width * scene->r.height);
 	if (header == NULL)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	header[0] = (char)('B');
 	header[1] = (char)('M');
 	write_int_to_bmp(2, size, &header);
@@ -55,7 +59,7 @@ void	generate_bmp_info(int fd, t_scene *scene)
 	i = 15;
 	header = (char *)malloc((int)info_size * sizeof(char));
 	if (header == NULL)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	write_int_to_bmp(0, info_size, &header);
 	write_int_to_bmp(4, scene->r.width, &header);
 	write_int_to_bmp(8, scene->r.height, &header);
@@ -100,17 +104,17 @@ void	create_bmp(char *name, t_scene *scene)
 	rt_image(scene, &img);
 	path = ft_strjoin(name, ".bmp");
 	if (path == NULL)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	free(name);
 	name = NULL;
 	fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0755);
 	if (fd <= 2)
-		ft_error_rt(BMP_CREATE_ER, scene);
+		ft_error_rt(bmp_create_err, scene);
 	generate_bmp_header(fd, scene);
 	generate_bmp_info(fd, scene);
 	convert_to_bmp_data(fd, scene, img);
 	close(fd);
 	printf("Done!\n");
 	free(path);
-	path = NULL;
+	scene_free(scene);
 }

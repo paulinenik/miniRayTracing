@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:02:27 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:24:44 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:14:43 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 {
@@ -22,12 +23,11 @@ void	rt_triangle(t_scene *scene, t_xyz o, t_xyz v, t_pixel *pixel)
 	while (tr_list)
 	{
 		tr = tr_list->content;
-		if ((t = intersection_tr(o, v, tr)) && t < pixel->t)
+		if ((t = intersection_tr(o, v, tr)) && (t < pixel->t))
 		{
 			pixel->t = t;
 			pixel->rgb = tr->color;
 			pixel->n = tr->n;
-			pixel->id = TR;
 			lighting(o, v, pixel, scene);
 			pixel->color = rgb_to_int(pixel->rgb, pixel->i);
 		}
@@ -52,10 +52,10 @@ double	intersection_tr(t_xyz o, t_xyz d, t_triangle *tr)
 		return (0);
 	coo.qvec = cross_product(coo.tvec, tr->ab);
 	coo.v = dot_product(d, coo.qvec) / coo.det;
-	if (coo.v < 0.0 || coo.v + coo.u > 1.0)
+	if (coo.v < EPSYLON || coo.v + coo.u > 0.99999)
 		return (0);
 	t = dot_product(tr->bc, coo.qvec) / coo.det;
-	if (t > 0.0 && t < INFINITY)
+	if (t > EPSYLON && t < INFINITY)
 		return (t);
 	return (0);
 }

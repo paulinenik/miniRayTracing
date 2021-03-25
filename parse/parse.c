@@ -6,11 +6,13 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:15:08 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/22 22:25:07 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 19:09:43 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "libft.h"
+#include <stdlib.h>
 
 void	get_scene(char *line, t_scene *scene)
 {
@@ -40,7 +42,7 @@ t_scene	*init_scene(void)
 
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (!scene)
-		ft_error_rt(MALLOC_ERR, scene);
+		ft_error_rt(malloc_err, scene);
 	scene->r.height = -1;
 	scene->r.width = -1;
 	scene->a.bright = -1;
@@ -76,7 +78,7 @@ void	parse(int fd, int save, char *name)
 	line = NULL;
 	close(fd);
 	if (gnl == -1)
-		ft_error_rt(READ_ERR, scene);
+		ft_error_rt(read_err, scene);
 	if (save)
 		create_bmp(name, scene);
 	else

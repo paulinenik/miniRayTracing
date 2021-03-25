@@ -6,11 +6,12 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 18:14:51 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:22:21 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/25 21:13:56 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
