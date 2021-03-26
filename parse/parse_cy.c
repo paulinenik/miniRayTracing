@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:06:17 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/25 19:08:29 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/26 21:36:18 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	parse_cy(char *line, t_scene *scene)
 	cy->r = ft_atof(arr[3], scene) / 2;
 	cy->height = ft_atof(arr[4], scene);
 	cy->color = atorgb(arr[5], scene);
+	if (cy->r <= 0 || cy->height <= 0)
+		ft_error_rt(map_invalid, scene);
 	new = ft_lstnew(cy);
 	if (!new)
 		ft_error_rt(malloc_err, scene);

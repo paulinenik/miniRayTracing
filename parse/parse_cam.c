@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 22:24:46 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/25 19:08:20 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/26 21:37:54 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	parse_cam(char *line, t_scene *scene)
 	cam->point = ato_xyz(arr[1], scene);
 	cam->vector = ato_xyz(arr[2], scene);
 	cam->fov = rt_atoi(arr[3], scene);
+	if (cam->fov < 0 || cam->fov > 180)
+		ft_error_rt(map_invalid, scene);
 	new = ft_dlstnew(cam);
 	if (!new)
 		ft_error_rt(malloc_err, scene);

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 22:33:54 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/25 19:08:32 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/26 21:34:54 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	parse_light(char *str, t_scene *scene)
 		ft_error_rt(map_invalid, scene);
 	l->point = ato_xyz(arr[1], scene);
 	l->bright = ft_atof(arr[2], scene);
-	scene->light_sum += l->bright;
 	if (l->bright < 0 || l->bright > 1)
 		ft_error_rt(map_bright_err, scene);
 	l->color = atorgb(arr[3], scene);

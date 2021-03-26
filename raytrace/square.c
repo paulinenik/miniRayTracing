@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 15:39:22 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/24 23:23:03 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/26 20:06:53 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_xyz	rotate(t_square *sq, double x, double y)
 	t_xyz	dot;
 
 	if (sq->vect.x == 0.0 && sq->vect.z == 0.0)
-		sq->vect.z = 0.001;
+		sq->vect.z = EPSYLON;
 	right = normalize(cross_product((t_xyz){0.0, 1.0, 0.0}, sq->vect));
 	up = normalize(cross_product(sq->vect, right));
 	dot = vect_sum(sq->center, vect_mult(x, right));

@@ -6,7 +6,7 @@
 /*   By: rgordon <rgordon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:12:36 by rgordon           #+#    #+#             */
-/*   Updated: 2021/03/25 19:09:15 by rgordon          ###   ########.fr       */
+/*   Updated: 2021/03/26 21:33:47 by rgordon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	parse_sp(char *line, t_scene *scene)
 	sp->center = ato_xyz(arr[1], scene);
 	sp->color = atorgb(arr[3], scene);
 	sp->r = ft_atof(arr[2], scene) / 2;
+	if (sp->r <= 0)
+		ft_error_rt(map_invalid, scene);
 	new = ft_lstnew(sp);
 	if (!new)
 		ft_error_rt(malloc_err, scene);
